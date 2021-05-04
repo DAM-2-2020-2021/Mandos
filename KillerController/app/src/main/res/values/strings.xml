@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">KillerController</string>
+    <string name="killer_splash">Killer splash</string>
+    <string name="play_string">Touch to start</string>
+    <string name="player_name">Player name</string>
+    <string name="next_arrow_desc">next arrow</string>
+    <string name="previous_arrow">previous arrow</string>
+    <string name="red_team">RED TEAM</string>
+    <string name="blue_team">BLUE TEAM</string>
+    <string name="ready">Ready</string>
+    <string name="left_move">L</string>
+    <string name="right_move">R</string>
+    <string name="shoot">Shoot</string>
+    <string name="vidas">Vidas</string>
+    <string name="enter_your_nickname">Enter your nickname</string>
+</resources>

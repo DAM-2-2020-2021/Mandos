@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="60dp"
+    android:forceDarkAllowed="false">
+    <TextView
+        android:id="@+id/message"
+        android:text="@string/enter_your_nickname"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/name_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#787266"
+        android:gravity="center_horizontal" />
+    <Button
+        android:id="@+id/play_btn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="Play"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+</LinearLayout>
