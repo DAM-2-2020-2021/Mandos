@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:gravity="center_horizontal"/>
 
     <EditText
@@ -32,5 +32,5 @@
         android:textSize="16sp"
         android:text="Play"
         android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 </LinearLayout>

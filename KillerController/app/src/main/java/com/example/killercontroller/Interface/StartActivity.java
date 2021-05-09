@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 
 import com.example.killercontroller.R;
 
+import eu.cifpfbmoll.netlib.node.NodeConnection;
+
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MediaPlayer mediaPlayer;
@@ -30,8 +32,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         this.mediaPlayer = MediaPlayer.create(this,R.raw.musica_menu);
         this.mediaPlayer.start();
         this.mediaPlayer.setLooping(true);
-
-        ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.start_layout);
+        
+        LinearLayout layout = (LinearLayout) findViewById(R.id.start_layout);
         layout.setOnClickListener(this);
 
 
