@@ -1,18 +1,18 @@
 package com.example.killercontroller.Interface;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.TimeInterpolator;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.Vibrator;
+import android.view.Display;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,15 +26,19 @@ import com.example.killercontroller.R;
 public class PadActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private TextView left, right, shoot, move;
-    private Channel channel;
     private ImageView shipPad;
+    private Singleton singleton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pad);
 
-        Singleton singleton = Singleton.getInstance();
+        this.singleton = Singleton.getInstance();
+        this.singleton.getMediaPlayer().stop();
+        this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_partida));
+        this.singleton.getMediaPlayer().setLooping(true);
+        this.singleton.getMediaPlayer().start();
 
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {
@@ -65,6 +69,35 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
 
         singleton.levitate(this.shipPad, 20);
 
+    }
+
+    public void exitGame() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.pause_menu);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+
+        Button continues = dialog.findViewById(R.id.continue_btn);
+        continues.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button exit = dialog.findViewById(R.id.exit_btn);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PadActivity.this.finish();
+            }
+        });
+        dialog.show();
     }
 
     @Override
@@ -104,4 +137,18 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+        exitGame();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.singleton.getMediaPlayer().stop();
+        this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
+        this.singleton.getMediaPlayer().setLooping(true);
+        this.singleton.getMediaPlayer().start();
+    }
 }

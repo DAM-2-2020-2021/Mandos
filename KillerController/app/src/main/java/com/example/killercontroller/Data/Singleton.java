@@ -3,12 +3,15 @@ package com.example.killercontroller.Data;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.TimeInterpolator;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import java.net.Socket;
 
 public class Singleton {
+
+    private MediaPlayer mediaPlayer;
     private static Singleton instance;
 
     public static Singleton getInstance(){
@@ -23,6 +26,14 @@ public class Singleton {
 
     public Socket getSocket() {
         return mSocket;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
     }
 
     public void levitate(final View movableView, final float Y) {
@@ -40,4 +51,6 @@ public class Singleton {
                     }
                 });
     }
+
+
 }

@@ -1,11 +1,16 @@
 package com.example.killercontroller.Interface;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.media.MediaActionSound;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,12 +25,10 @@ import com.example.killercontroller.R;
 
 public class ConfigureActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private int shipIndex;
     private ImageSwitcher img_switcher;
     private TextView textViewPlayerName;
     private String playerName;
-    private ImageView back, next, ship;
-    private MediaPlayer mediaPlayer;
+    private ImageView back, next;
     private int imgList[] = {R.drawable.nave1,
             R.drawable.nave2,
             R.drawable.nave3};
@@ -38,10 +41,8 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure);
 
+        this.instance = Singleton.getInstance();
         this.img_switcher = (ImageSwitcher) findViewById(R.id.img_switcher);
-        this.mediaPlayer = MediaPlayer.create(this, R.raw.musica_menu);
-        this.mediaPlayer.setLooping(true);
-        this.mediaPlayer.start();
 
         this.textViewPlayerName = (TextView) findViewById(R.id.player_name);
         setPlayerName();
@@ -61,14 +62,40 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         });
         img_switcher.setImageResource(imgList[0]);
 
-
-        this.instance = Singleton.getInstance();
-        this.instance.levitate(img_switcher.getCurrentView(),20);
         this.back = (ImageView) findViewById(R.id.back_arrow);
         this.back.setOnClickListener(this);
         this.next = (ImageView) findViewById(R.id.next_arrow);
         this.next.setOnClickListener(this);
 
+    }
+
+    public void exitGame() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.pause_menu);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+
+        Button continues = dialog.findViewById(R.id.continue_btn);
+        continues.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button exit = dialog.findViewById(R.id.exit_btn);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConfigureActivity.this.finish();
+            }
+        });
+        dialog.show();
     }
 
     @Override
@@ -96,7 +123,6 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
             default:
                 System.out.println("Invalid option");
         }
-        this.instance.levitate(img_switcher.getCurrentView(),20);
     }
 
     public void startPadActivity(View v) {
@@ -106,6 +132,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         intent = new Intent(this, PadActivity.class);
         intent.putExtra("SHIP", this.imgList[this.currentIndex]);
         startActivity(intent);
+        ConfigureActivity.this.finish();
 
     }
 
@@ -122,29 +149,20 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ConfigureActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+        exitGame();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (this.mediaPlayer != null) this.mediaPlayer.start();
+        if (this.instance.getMediaPlayer() != null) this.instance.getMediaPlayer().start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (this.mediaPlayer != null) {
-            this.mediaPlayer.pause();
+        if (this.instance.getMediaPlayer() != null) {
+            this.instance.getMediaPlayer().pause();
         }
     }
 }

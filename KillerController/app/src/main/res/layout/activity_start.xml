@@ -6,15 +6,77 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
     android:gravity="center"
-    tools:context=".Interface.StartActivity">
+    tools:context=".Interface.StartActivity"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="D"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="A"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="M"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/n"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="N"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size" />
+        </TableRow>
+
+    </TableLayout>
+
 
     <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/subtitle"
+        android:text="CIFP Francesc Borja Moll"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/white"
+        android:shadowColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/play_string"
         android:textColor="@color/white"
-        android:textSize="@dimen/play_size" />
+        android:textSize="@dimen/play_size"
+        android:visibility="gone"/>
 
 </LinearLayout>

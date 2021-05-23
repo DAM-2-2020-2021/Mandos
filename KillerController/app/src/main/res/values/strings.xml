@@ -15,4 +15,8 @@
     <string name="enter_your_nickname">Enter your nickname</string>
     <string name="on_red_team">On Red Team</string>
     <string name="on_blue_team">On Blue team</string>
+    <string name="pause_menu">Pause Menu</string>
+    <string name="continues">Continue</string>
+    <string name="exit">Exit</string>
+    <string name="waiting">Waiting</string>
 </resources>
