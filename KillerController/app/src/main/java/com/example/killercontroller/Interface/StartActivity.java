@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +25,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.killercontroller.Data.Singleton;
 import com.example.killercontroller.R;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import eu.cifpfbmoll.netlib.node.NodeManager;
+
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MediaPlayer mediaPlayer;
@@ -41,6 +47,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         this.singleton.getMediaPlayer().setLooping(true);
         this.singleton.getMediaPlayer().start();
         this.startTextView = (TextView) findViewById(R.id.start);
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
 
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.start_layout);
@@ -127,8 +141,19 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void startPadActivity(String playerName) {
+    public void startConfigureActivity(String playerName) {
 
+        String ip = null;
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        System.out.println(ip);
+        NodeManager nodeManager = new NodeManager(1,ip);
+        if (nodeManager.getNodeServer().join()){
+            System.out.println("Funciona");
+        }
         Intent intent;
         intent = new Intent(this, ConfigureActivity.class);
         intent.putExtra("PLAYER KEY", playerName);
@@ -160,7 +185,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 play.setVisibility(View.GONE);
                 planerNameTextView.setVisibility(View.GONE);
 
-                startPadActivity(name.getText().toString());
+                startConfigureActivity(name.getText().toString());
                 dialog.dismiss();
             }
         });

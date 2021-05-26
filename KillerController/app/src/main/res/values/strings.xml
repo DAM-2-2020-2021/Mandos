@@ -19,4 +19,7 @@
     <string name="continues">Continue</string>
     <string name="exit">Exit</string>
     <string name="waiting">Waiting</string>
+    <string name="you_win">YOU WIN</string>
+    <string name="you_loose">YOU LOOSE</string>
+    <string name="you_died">YOU DIED</string>
 </resources>

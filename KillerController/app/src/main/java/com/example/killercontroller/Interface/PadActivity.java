@@ -7,11 +7,14 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.StrictMode;
 import android.os.Vibrator;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +22,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.killercontroller.Communication.Channel;
 import com.example.killercontroller.Data.Singleton;
 import com.example.killercontroller.R;
 
@@ -107,16 +109,19 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.left:
                 Toast.makeText(this, "Left", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
+                showDeathScreen();
                 // this.channel.send();
                 break;
             case R.id.right:
                 Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
+                showLooseScreen();
                 // this.channel.send();
                 break;
             case R.id.move:
                 Toast.makeText(this, "Moving", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
+                showWinScreen();
                 // this.channel.send();;
                 break;
             case R.id.shoot:
@@ -139,7 +144,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-       // super.onBackPressed();
+        // super.onBackPressed();
         exitGame();
     }
 
@@ -150,5 +155,89 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
         this.singleton.getMediaPlayer().setLooping(true);
         this.singleton.getMediaPlayer().start();
+    }
+
+    /**
+     * Show a custom dialog for a death screen
+     */
+    private void showDeathScreen() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.death_screen);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+        dialog.show();
+
+        new CountDownTimer(3000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                dialog.dismiss();
+            }
+        }.start();
+
+    }
+
+
+    /**
+     * Show a custom dialog for a loose screen
+     */
+    private void showLooseScreen() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.loose_screen);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        TextView looseTextView = (TextView) dialog.findViewById(R.id.loose_message);
+        Context context = PadActivity.this.getApplicationContext();
+        Animation loose = AnimationUtils.loadAnimation(context, R.anim.loose_animation);
+        looseTextView.startAnimation(loose);
+    }
+
+
+    /**
+     * Show a custom dialog for a win screen
+     */
+    private void showWinScreen() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.win_screen);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        dialog.getWindow().setLayout(width, height);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+        dialog.show();
+
+        new CountDownTimer(3000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                dialog.dismiss();
+            }
+        }.start();
     }
 }
