@@ -144,7 +144,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     public void startConfigureActivity(String playerName) {
 
         String ip = null;
-        try {
+     /*   try {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -153,7 +153,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         NodeManager nodeManager = new NodeManager(1,ip);
         if (nodeManager.getNodeServer().join()){
             System.out.println("Funciona");
-        }
+        }*/
         Intent intent;
         intent = new Intent(this, ConfigureActivity.class);
         intent.putExtra("PLAYER KEY", playerName);
@@ -189,6 +189,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 dialog.dismiss();
             }
         });
+        ////////////////////////////////////////////////////
+        Button stringButton = dialog.findViewById(R.id.string_btn);
+        stringButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        ////////////////////////////////////////////////////////
         dialog.setCancelable(true);
         dialog.show();
     }
