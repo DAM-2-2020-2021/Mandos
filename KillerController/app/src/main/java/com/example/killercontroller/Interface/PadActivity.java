@@ -228,6 +228,11 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
         dialog.show();
 
+        TextView looseTextView = (TextView) dialog.findViewById(R.id.win_message);
+        Context context = PadActivity.this.getApplicationContext();
+        Animation loose = AnimationUtils.loadAnimation(context, R.anim.win_animation);
+        looseTextView.startAnimation(loose);
+
         new CountDownTimer(3000, 1000) {
 
             @Override

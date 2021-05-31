@@ -155,7 +155,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        if (this.instance.getMediaPlayer() != null) this.instance.getMediaPlayer().start();
+        if (this.instance.getMediaPlayer() != null && !this.instance.getMediaPlayer().isPlaying() ) this.instance.getMediaPlayer().start();
     }
 
     @Override

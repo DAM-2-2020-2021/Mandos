@@ -9,7 +9,7 @@
     android:forceDarkAllowed="false">
 
     <TextView
-        android:id="@+id/pause_message"
+        android:id="@+id/win_message"
         android:text="@string/you_win"
         android:textStyle="bold"
         android:layout_width="wrap_content"

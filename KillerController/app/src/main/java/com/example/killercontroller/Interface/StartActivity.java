@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.format.Formatter;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -23,19 +25,22 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.killercontroller.Data.Singleton;
+import com.example.killercontroller.Data.User;
 import com.example.killercontroller.R;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.util.List;
 
 import eu.cifpfbmoll.netlib.node.NodeManager;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MediaPlayer mediaPlayer;
+
     private Singleton singleton;
     private TableLayout table;
     private TextView startTextView;
+    private boolean stopMusic = false;
+    private String ip;
+    NodeManager nodeManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,37 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             StrictMode.setThreadPolicy(policy);
         }
 
+        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        this.ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
 
+        this.nodeManager = new NodeManager(ip);
+        List<String> ips = nodeManager.getIpsForSubnet("192.168.0");
+        this.nodeManager.register(User.class, (id, user) -> {
+            System.out.println(user.name);
+            System.out.println(user.ip);
+        });
+        this.nodeManager.startScan(ips);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+        System.out.println("esta es mi ip" + ip);
+
+        System.out.println("esta es mi ip" + ip);
+
+        System.out.println("esta es mi ip" + ip);
+
+        System.out.println("esta es mi ip" + ip);
+
+        System.out.println("esta es mi ip" + ip);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.start_layout);
         layout.setOnClickListener(this);
@@ -73,7 +108,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             }
 
             public void onAnimationEnd(Animation animation) {
-               setStartVisible(subtitle);
+                setStartVisible(subtitle);
             }
 
             @Override
@@ -85,7 +120,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void setStartVisible(final TextView subtitle){
+    private void setStartVisible(final TextView subtitle) {
         final Context context = StartActivity.this.getApplicationContext();
         Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
         subtitle.startAnimation(fadeOut);
@@ -97,7 +132,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
             public void onAnimationEnd(Animation animation) {
                 subtitle.setVisibility(View.GONE);
-                Animation fadeIn = AnimationUtils.loadAnimation(context,R.anim.fade_in);
+                Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
                 startTextView.startAnimation(fadeIn);
                 startTextView.setVisibility(View.VISIBLE);
 
@@ -142,18 +177,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
 
     public void startConfigureActivity(String playerName) {
-
-        String ip = null;
-     /*   try {
-            ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        System.out.println(ip);
-        NodeManager nodeManager = new NodeManager(1,ip);
-        if (nodeManager.getNodeServer().join()){
-            System.out.println("Funciona");
-        }*/
+        this.stopMusic = true;
         Intent intent;
         intent = new Intent(this, ConfigureActivity.class);
         intent.putExtra("PLAYER KEY", playerName);
@@ -194,6 +218,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         stringButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //  sendTest(v);
+
 
             }
         });
@@ -205,18 +231,23 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         setPlayerName();
+        User user = new User();
+        user.name = "Juan";
+        user.ip = this.ip;
+        System.out.println(this.nodeManager.send(31, user));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        this.stopMusic = false;
         if (this.singleton.getMediaPlayer() != null) this.singleton.getMediaPlayer().start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (this.singleton.getMediaPlayer() != null) {
+        if (this.singleton.getMediaPlayer() != null && this.stopMusic) {
             this.singleton.getMediaPlayer().pause();
         }
     }

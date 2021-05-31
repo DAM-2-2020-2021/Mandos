@@ -7,7 +7,11 @@ import android.media.MediaPlayer;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
+
+import eu.cifpfbmoll.netlib.node.NodeManager;
 
 public class Singleton {
 
@@ -52,5 +56,14 @@ public class Singleton {
                 });
     }
 
-
+    public void setListeners(){
+        try {
+            NodeManager nodeManager = new NodeManager(InetAddress.getLocalHost().getHostAddress());
+            nodeManager.register(User.class, (id, user) -> {
+                System.out.println();
+            });
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
 }
