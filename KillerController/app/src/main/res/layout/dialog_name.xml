@@ -5,40 +5,14 @@
     android:layout_height="match_parent"
     android:forceDarkAllowed="false"
     android:gravity="center"
-    android:orientation="vertical"
-    android:padding="60dp">
-
-    <LinearLayout
-        android:id="@+id/loading_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:gravity="center">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"/>
-
-        <TextView
-            android:id="@+id/name_dialog_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/waiting"
-            android:textColor="@color/white"
-            android:textSize="18sp"/>
-
-    </LinearLayout>
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:layout_margin="20dp"
         android:text="@string/enter_your_nickname"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size"
@@ -46,29 +20,24 @@
 
     <EditText
         android:id="@+id/name_user"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/white"
+        android:hint="@string/enter_your_nickname"
+        android:textColorHint="@color/white"
         android:gravity="center_horizontal"
         android:textColor="#787266"
         android:textSize="16sp" />
 
     <Button
         android:id="@+id/play_btn"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:gravity="center"
-        android:text="Play"
+        android:text="@string/play"
         android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/string_btn"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="PRUEBAS"
-        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 

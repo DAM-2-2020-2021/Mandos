@@ -1,44 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Interface.PadActivity"
-    android:weightSum="3"
+    android:background="@drawable/menu"
     android:orientation="vertical"
-    android:background="@drawable/fondo">
+    android:weightSum="3"
+    tools:context=".Interface.PadActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_weight="1"
         android:weightSum="5">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_string"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Chronometer
+            android:id="@+id/match_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Match Score"
+            android:text="@string/match_score"
+            android:layout_weight="1"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:layout_weight="2"/>
+            android:textSize="20sp" />
+
         <TextView
-            android:layout_gravity="right"
+            android:id="@+id/red_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vidas"
+            android:text="0"
+            android:layout_weight="1"
             android:textColor="@color/red"
-            android:textSize="40sp"/>
+            android:textSize="20sp" />
         <TextView
-            android:layout_gravity="right"
+            android:id="@+id/blue_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vidas"
+            android:text="0"
+            android:layout_weight="1"
             android:textColor="@color/blue"
-            android:textSize="40sp"/>
+            android:textSize="20sp" />
 
 
     </LinearLayout>
@@ -46,34 +63,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:weightSum="3">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="left"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/right"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:text="@string/right_move"
-                android:textColor="@color/white"
-                style="@style/ScoreButtons" />
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/left"
+                style="@style/ScoreButtons"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="@string/left_move"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/right"
+                style="@style/ScoreButtons"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="70dp"
                 android:layout_marginLeft="70dp"
-                android:text="@string/left_move"
-                android:textColor="@color/white"
-                style="@style/ScoreButtons"/>
+                android:text="@string/right_move"
+                android:textColor="@color/white" />
 
 
         </LinearLayout>
@@ -94,17 +112,17 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_weight="1"
             android:gravity="right"
-            android:layout_weight="1">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/move"
                 style="@style/ScoreButtons"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:textColor="@color/white"
-                android:text="Move"/>
+                android:text="Move"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/shoot"
@@ -113,8 +131,8 @@
                 android:layout_height="70dp"
                 android:layout_marginEnd="70dp"
                 android:layout_marginRight="70dp"
-                android:textColor="@color/white"
-                android:text="@string/shoot" />
+                android:text="@string/shoot"
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </LinearLayout>

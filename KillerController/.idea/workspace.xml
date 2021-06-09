@@ -9,27 +9,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8c9ddc1-7ed3-483e-9a87-131af71263b7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/anim/win_animation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_progress_bar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nave_tipo2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nave_tipo3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/pink_out_line.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/toggle_widget_background_blue.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/toggle_widget_background_red.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/Channel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/HealthChannel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Singleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Singleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/User.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_pad.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pad.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_start.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_start.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_name.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_name.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/win_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/win_screen.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Menu/AceptarMenu.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Menu/CambioMenu.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Menu/MusicaMenu.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/AgujeroNegroAparicion.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/AgujeroNegroMortal.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/Teletransporte.m4a2.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/Teletransporte2.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Alert/Alert.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Disparo/Disparo.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Meteorito/DestruccionMeteorito.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Meteorito/DestruccionMeteorito2.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/AgujeroNegroMuerte.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/Muerte 3.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/Muerte2.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/MuerteColisionMeteorito.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/MuerteNormal.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Document sense títol.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Final/LastBattleParte1.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Final/LastBattleParte2.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/1.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/2.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/3.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/4.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/6.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/7.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/MusicaPartida.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Disparo1.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Disparo2.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Disparo3.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Escudo.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/PowerUpArmaAviso.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Punto/SumarPunto.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/disparo.m4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="16da8f4f" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_One_API_30" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -98,29 +142,31 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_30" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-05-16T19:45:08.123Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="16da8f4f" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-06-08T11:50:45.064Z" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/raw" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Datos\Usuario\src\proyectoDAM\Mandos\KillerController\app\src\main\res\raw" />
+      <recent name="F:\Datos\Usuario\src\proyectoDAM\Mandos\KillerController\app\src\main\java\com\example\killercontroller\Data" />
       <recent name="F:\Datos\Usuario\src\proyectoDAM\Mandos\KillerController\app\src\main\res\drawable" />
+      <recent name="F:\Datos\Usuario\src\proyectoDAM\Mandos\KillerController\app\src\main\res\font" />
       <recent name="F:\Datos\Usuario\src\Android\KillerController\app\src\main\res\drawable" />
     </key>
     <key name="android.template.-1376561062">
       <recent name="com.example.killercontroller.Interface" />
       <recent name="com.example.killercontroller" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Datos\Usuario\src\proyectoDAM\Mandos\KillerController\app\src\main\res\drawable" />
-      <recent name="F:\Datos\Usuario\src\proyectoDAM\Mandos\KillerController\app\src\main\res\font" />
       <recent name="F:\Datos\Usuario\src\Android\KillerController\app\src\main\res\drawable" />
     </key>
   </component>
@@ -206,50 +252,50 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1622059511656" />
-    <state x="500" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1621194501683">
+    <state x="500" y="215" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1623137789735">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="500" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1621194501683" />
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1621276952140">
+    <state x="500" y="215" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1623137789735" />
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1622668499187">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1621276952140" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1621278631782">
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1622668499187" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1623151221599">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1621278631782" />
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1623151221599" />
     <state x="349" y="167" key="AndroidCreateResourceDirectoryDialog" timestamp="1620587230895">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="349" y="167" key="AndroidCreateResourceDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1620587230895" />
-    <state x="349" y="167" key="AndroidCreateResourceFileDialog" timestamp="1622460898878">
+    <state x="349" y="167" key="AndroidCreateResourceFileDialog" timestamp="1622807663409">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="349" y="167" key="AndroidCreateResourceFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1622460898878" />
-    <state x="627" y="225" key="AndroidCreateXmlResourceDialog" timestamp="1621884369689">
+    <state x="349" y="167" key="AndroidCreateResourceFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1622807663409" />
+    <state x="627" y="225" key="AndroidCreateXmlResourceDialog" timestamp="1623138064199">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="627" y="225" key="AndroidCreateXmlResourceDialog/0.0.1536.824@0.0.1536.824" timestamp="1621884369689" />
+    <state x="627" y="225" key="AndroidCreateXmlResourceDialog/0.0.1536.824@0.0.1536.824" timestamp="1623138064199" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1619285454018">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1619285454018" />
-    <state width="1491" height="313" key="GridCell.Tab.0.bottom" timestamp="1622488822432">
+    <state width="1491" height="177" key="GridCell.Tab.0.bottom" timestamp="1623251150467">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="313" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622488822432" />
-    <state width="1491" height="313" key="GridCell.Tab.0.center" timestamp="1622488822431">
+    <state width="1491" height="177" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
+    <state width="1491" height="177" key="GridCell.Tab.0.center" timestamp="1623251150467">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="313" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622488822431" />
-    <state width="1491" height="313" key="GridCell.Tab.0.left" timestamp="1622488822431">
+    <state width="1491" height="177" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
+    <state width="1491" height="177" key="GridCell.Tab.0.left" timestamp="1623251150467">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="313" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622488822431" />
-    <state width="1491" height="313" key="GridCell.Tab.0.right" timestamp="1622488822431">
+    <state width="1491" height="177" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
+    <state width="1491" height="177" key="GridCell.Tab.0.right" timestamp="1623251150467">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="313" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622488822431" />
+    <state width="1491" height="177" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
     <state width="1491" height="260" key="GridCell.Tab.1.bottom" timestamp="1622481894861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -266,18 +312,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1491" height="260" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1622481894860" />
-    <state x="277" y="55" key="SettingsEditor" timestamp="1620666390821">
+    <state x="277" y="0" key="SettingsEditor" timestamp="1623247883082">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1620666390821" />
-    <state x="584" y="190" key="chooseDestDirectoryDialog" timestamp="1621194821692">
+    <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1623247883082" />
+    <state x="584" y="190" key="chooseDestDirectoryDialog" timestamp="1622799389503">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="584" y="190" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1621194821692" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1622315207086">
+    <state x="584" y="190" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1622799389503" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1622729995698">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1622315207086" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1622729995698" />
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1622058521797">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -290,22 +336,17 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1619553412037" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1620591564893">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1623180079824">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1620591564893" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1623180079824" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java</url>
-          <line>109</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java</url>
-          <line>46</line>
+          <line>59</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">

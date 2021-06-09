@@ -24,8 +24,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.killercontroller.Communication.Message;
 import com.example.killercontroller.Data.Singleton;
-import com.example.killercontroller.Data.User;
 import com.example.killercontroller.R;
 
 import java.util.List;
@@ -37,10 +37,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private Singleton singleton;
     private TableLayout table;
-    private TextView startTextView;
-    private boolean stopMusic = false;
+    private TextView startTextView, playButton;
+    private Button testing;
     private String ip;
-    NodeManager nodeManager;
+    private int myAdminId = 31;
+    private EditText name;
+    private Dialog connectDialog;
+    private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         this.singleton = Singleton.getInstance();
         this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
         this.singleton.getMediaPlayer().setLooping(true);
+        this.singleton.getMediaPlayer().setVolume(0.2f, 0.2f);
         this.singleton.getMediaPlayer().start();
         this.startTextView = (TextView) findViewById(R.id.start);
+        this.startTextView.setOnClickListener(this);
 
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {
@@ -59,38 +64,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        this.ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-
-        this.nodeManager = new NodeManager(ip);
-        List<String> ips = nodeManager.getIpsForSubnet("192.168.0");
-        this.nodeManager.register(User.class, (id, user) -> {
-            System.out.println(user.name);
-            System.out.println(user.ip);
-        });
-        this.nodeManager.startScan(ips);
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-
-
-        System.out.println("esta es mi ip" + ip);
-
-        System.out.println("esta es mi ip" + ip);
-
-        System.out.println("esta es mi ip" + ip);
-
-        System.out.println("esta es mi ip" + ip);
-
-        System.out.println("esta es mi ip" + ip);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.start_layout);
         layout.setOnClickListener(this);
@@ -116,8 +89,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
-
-
     }
 
     private void setStartVisible(final TextView subtitle) {
@@ -175,13 +146,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-
     public void startConfigureActivity(String playerName) {
-        this.stopMusic = true;
         Intent intent;
         intent = new Intent(this, ConfigureActivity.class);
         intent.putExtra("PLAYER KEY", playerName);
+        intent.putExtra("ID NODE SERVER", this.myAdminId);
         startActivity(intent);
+        this.singleton.getNodeManager().unregister(Message.class);
     }
 
     public void setPlayerName() {
@@ -196,58 +167,98 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         int height = size.y;
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        final EditText name = dialog.findViewById(R.id.name_user);
-        final TextView planerNameTextView = dialog.findViewById(R.id.name_dialog_textview);
+        this.name = dialog.findViewById(R.id.name_user);
+        this.playButton = (Button) dialog.findViewById(R.id.play_btn);
+        this.playButton.setOnClickListener(StartActivity.this);
 
-        final Button play = dialog.findViewById(R.id.play_btn);
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout loadingLayout = dialog.findViewById(R.id.loading_layout);
-                loadingLayout.setVisibility(View.VISIBLE);
-                name.setVisibility(View.GONE);
-                play.setVisibility(View.GONE);
-                planerNameTextView.setVisibility(View.GONE);
+        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        System.out.println(ip);
+        System.out.println(ip);
+        System.out.println(ip);
+        System.out.println(ip);
+        System.out.println(ip);
 
-                startConfigureActivity(name.getText().toString());
-                dialog.dismiss();
-            }
-        });
-        ////////////////////////////////////////////////////
-        Button stringButton = dialog.findViewById(R.id.string_btn);
-        stringButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  sendTest(v);
-
-
-            }
-        });
-        ////////////////////////////////////////////////////////
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
         dialog.show();
+    }
+
+    public void setLoadingScreen() {
+
+        connectDialog = new Dialog(this);
+        connectDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        connectDialog.setContentView(R.layout.loading_screen);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        connectDialog.getWindow().setLayout(width, height);
+        connectDialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+        this.testing = (Button) connectDialog.findViewById(R.id.button_testing_start);
+        this.testing.setOnClickListener(StartActivity.this);
+
+        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        System.out.println(ip);
+        singleton.setNodeManager(new NodeManager(ip));
+        List<String> ips = singleton.getNodeManager().getIpsForSubnet("172.20.10");
+        singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
+            switch (serverMessage.getMessage()) {
+                case ADMIN:
+                    this.myAdminId = Integer.parseInt(serverMessage.getMessageType());
+                    System.out.println("recibe el paquete");
+                    this.myAdminId = Integer.parseInt(serverMessage.getMessageType());
+                    connectDialog.dismiss();
+                    setPlayerName();
+                    break;
+            }
+        });
+        this.singleton.getNodeManager().startScan(ips);
+        connectDialog.setCancelable(false);
+        connectDialog.show();
+
     }
 
     @Override
     public void onClick(View v) {
-        setPlayerName();
-        User user = new User();
-        user.name = "Juan";
-        user.ip = this.ip;
-        System.out.println(this.nodeManager.send(31, user));
+        System.out.println(v.getId());
+        switch (v.getId()) {
+            case R.id.start:
+                setLoadingScreen();
+                break;
+            case R.id.play_btn:
+                Message message = new Message();
+                System.out.println(this.name.getText().toString());
+                message.setMessageType("NICKNAME");
+                if (this.name.getText().toString().equals("")) {
+                    this.name.setText("Player");
+                }
+                message.setMessage(this.name.getText().toString());
+                singleton.getNodeManager().send(this.myAdminId, message);
+                System.out.println(message.getMessage());
+                startConfigureActivity(name.getText().toString());
+                break;
+            case R.id.button_testing_start:
+                connectDialog.dismiss();
+                setPlayerName();
+        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.stopMusic = false;
-        if (this.singleton.getMediaPlayer() != null) this.singleton.getMediaPlayer().start();
+        this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
+        this.singleton.getMediaPlayer().setLooping(true);
+        this.singleton.getMediaPlayer().setVolume(0.2f, 0.2f);
+        this.singleton.getMediaPlayer().start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (this.singleton.getMediaPlayer() != null && this.stopMusic) {
+        if (this.singleton.getMediaPlayer() != null) {
             this.singleton.getMediaPlayer().pause();
         }
     }

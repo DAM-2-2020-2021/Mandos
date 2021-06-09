@@ -16,20 +16,27 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import com.example.killercontroller.Communication.Message;
 import com.example.killercontroller.Data.Singleton;
+import com.example.killercontroller.Data.Sound;
 import com.example.killercontroller.R;
 
 public class PadActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
-    private TextView left, right, shoot, move;
+    private TextView left, right, shoot, move, redScore, blueScore;
     private ImageView shipPad;
     private Singleton singleton;
+    private int currentScreen;
+    private Chronometer chronometer;
+    private final String SCORE = "SCORE", DEAD = "DEAD", FINISH = "FINISH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         this.singleton = Singleton.getInstance();
         this.singleton.getMediaPlayer().stop();
         this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_partida));
+        this.singleton.getMediaPlayer().setVolume(0.2f, 0.2f);
         this.singleton.getMediaPlayer().setLooping(true);
         this.singleton.getMediaPlayer().start();
 
@@ -49,13 +57,17 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
             StrictMode.setThreadPolicy(policy);
         }
 
+        this.chronometer = (Chronometer) findViewById(R.id.match_time);
+        this.chronometer.setTypeface(ResourcesCompat.getFont(this, R.font.pixelart));
+        this.chronometer.start();
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         this.shipPad = (ImageView) findViewById(R.id.ship_pad);
 
         Drawable d = getResources().getDrawable(extras.getInt("SHIP"));
         this.shipPad.setImageDrawable(d);
-
+        this.currentScreen = extras.getInt("ID NODE SERVER");
         this.left = (TextView) findViewById(R.id.left);
         this.left.setOnClickListener(this);
         this.left.setOnLongClickListener(this);
@@ -68,6 +80,26 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         this.shoot = (TextView) findViewById(R.id.shoot);
         this.shoot.setOnClickListener(this);
         this.shoot.setOnLongClickListener(this);
+        this.redScore = (TextView) findViewById(R.id.red_score);
+        this.blueScore = (TextView) findViewById(R.id.blue_score);
+
+        this.singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
+            switch (serverMessage.getMessage()) {
+                case SCORE:
+                    updateScores(serverMessage);
+                    System.out.println("recibe el paquete de puntuacion");
+                    break;
+                case DEAD:
+                    break;
+                case FINISH:
+                    if (Integer.parseInt(this.redScore.getText().toString()) > Integer.parseInt(this.blueScore.getText().toString())) {
+                        showLooseScreen();
+                    } else {
+                        showWinScreen();
+                    }
+                    break;
+            }
+        });
 
         singleton.levitate(this.shipPad, 20);
 
@@ -102,32 +134,64 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         dialog.show();
     }
 
+    private void updateScores(Message serverMessage) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView redScore = (TextView) findViewById(R.id.red_score);
+                TextView blueScore = (TextView) findViewById(R.id.blue_score);
+                String scoreFromServer = serverMessage.getMessageType();
+                String[] scores = scoreFromServer.split(":");
+                for (int i = 0; i < scores.length; i++) {
+                    System.out.println(scores[i]);
+                }
+                redScore.setText(scores[0]);
+                blueScore.setText(scores[1]);
+                showDeathScreen();
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         Vibrator vibe = (Vibrator) PadActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
         switch (v.getId()) {
             case R.id.left:
-                Toast.makeText(this, "Left", Toast.LENGTH_SHORT).show();
+                Message left = new Message();
+                left.setMessageType("MOVEMENT");
+                left.setMessage("LEFT");
+                this.singleton.getNodeManager().send(this.currentScreen, left);
                 vibe.vibrate(80);
-                showDeathScreen();
-                // this.channel.send();
+                // showDeathScreen();
                 break;
             case R.id.right:
+                Message right = new Message();
+                right.setMessageType("MOVEMENT");
+                right.setMessage("RIGHT");
+                this.singleton.getNodeManager().send(this.currentScreen, right);
                 Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
-                showLooseScreen();
+                //showLooseScreen();
                 // this.channel.send();
                 break;
             case R.id.move:
+                Message move = new Message();
+                move.setMessageType("MOVEMENT");
+                move.setMessage("MOVE");
+                this.singleton.getNodeManager().send(this.currentScreen, move);
                 Toast.makeText(this, "Moving", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
-                showWinScreen();
+                //  showWinScreen();
                 // this.channel.send();;
                 break;
             case R.id.shoot:
+                Message shoot = new Message();
+                shoot.setMessageType("SHOOT");
+                shoot.setMessage("SHOOT");
+                this.singleton.getNodeManager().send(this.currentScreen, shoot);
                 Toast.makeText(this, "Shooting", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
-                // this.channel.send();
+                Sound.shoot(v, 0.9f, 0.9f);
                 break;
             default:
                 System.out.println("Option not found");
@@ -152,9 +216,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     protected void onPause() {
         super.onPause();
         this.singleton.getMediaPlayer().stop();
-        this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
-        this.singleton.getMediaPlayer().setLooping(true);
-        this.singleton.getMediaPlayer().start();
     }
 
     /**
@@ -172,8 +233,8 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
         dialog.show();
-
-        new CountDownTimer(3000, 1000) {
+        Sound.death(PadActivity.this.getBaseContext(), 0.7f, 0.7f);
+        new CountDownTimer(5000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -187,28 +248,34 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
     /**
      * Show a custom dialog for a loose screen
      */
     private void showLooseScreen() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.loose_screen);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        dialog.setCancelable(true);
-        dialog.show();
 
-        TextView looseTextView = (TextView) dialog.findViewById(R.id.loose_message);
-        Context context = PadActivity.this.getApplicationContext();
-        Animation loose = AnimationUtils.loadAnimation(context, R.anim.loose_animation);
-        looseTextView.startAnimation(loose);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final Dialog dialog = new Dialog(PadActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.loose_screen);
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;
+                dialog.getWindow().setLayout(width, height);
+                dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+                dialog.setCancelable(true);
+                dialog.show();
+
+                TextView looseTextView = (TextView) dialog.findViewById(R.id.loose_message);
+                Context context = PadActivity.this.getApplicationContext();
+                Animation loose = AnimationUtils.loadAnimation(context, R.anim.loose_animation);
+                looseTextView.startAnimation(loose);
+            }
+        });
+
     }
 
 
@@ -216,33 +283,33 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
      * Show a custom dialog for a win screen
      */
     private void showWinScreen() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.win_screen);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        dialog.show();
-
-        TextView looseTextView = (TextView) dialog.findViewById(R.id.win_message);
-        Context context = PadActivity.this.getApplicationContext();
-        Animation loose = AnimationUtils.loadAnimation(context, R.anim.win_animation);
-        looseTextView.startAnimation(loose);
-
-        new CountDownTimer(3000, 1000) {
-
+        runOnUiThread(new Runnable() {
             @Override
-            public void onTick(long millisUntilFinished) {
-            }
+            public void run() {
+                final Dialog dialog = new Dialog(PadActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.win_screen);
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;
+                dialog.getWindow().setLayout(width, height);
+                dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+                dialog.show();
 
-            @Override
-            public void onFinish() {
-                dialog.dismiss();
+                TextView looseTextView = (TextView) dialog.findViewById(R.id.win_message);
+                Context context = PadActivity.this.getApplicationContext();
+                Animation loose = AnimationUtils.loadAnimation(context, R.anim.win_animation);
+                looseTextView.startAnimation(loose);
             }
-        }.start();
+        });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.singleton.getMediaPlayer() != null) this.singleton.getMediaPlayer().start();
+    }
+
 }

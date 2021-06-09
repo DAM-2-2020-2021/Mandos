@@ -7,29 +7,27 @@ import android.media.MediaPlayer;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
 import eu.cifpfbmoll.netlib.node.NodeManager;
 
 public class Singleton {
 
     private MediaPlayer mediaPlayer;
     private static Singleton instance;
+    private NodeManager nodeManager;
 
-    public static Singleton getInstance(){
+    public NodeManager getNodeManager() {
+        return nodeManager;
+    }
+
+    public void setNodeManager(NodeManager nodeManager) {
+        this.nodeManager = nodeManager;
+    }
+
+    public static Singleton getInstance() {
         return (instance == null) ? instance = new Singleton() : instance;
     }
 
-    private Singleton(){
-    }
-
-    // implementation part
-    private Socket mSocket;
-
-    public Socket getSocket() {
-        return mSocket;
+    private Singleton() {
     }
 
     public MediaPlayer getMediaPlayer() {
@@ -56,14 +54,4 @@ public class Singleton {
                 });
     }
 
-    public void setListeners(){
-        try {
-            NodeManager nodeManager = new NodeManager(InetAddress.getLocalHost().getHostAddress());
-            nodeManager.register(User.class, (id, user) -> {
-                System.out.println();
-            });
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
 }

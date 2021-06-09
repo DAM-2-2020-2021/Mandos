@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/menu"
     android:gravity="center_vertical"
-    tools:context=".Interface.ConfigureActivity"
-    android:background="@drawable/fondo">
+    tools:context=".Interface.ConfigureActivity">
 
     <LinearLayout
         android:id="@+id/teams_layout"
@@ -14,77 +13,123 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="@string/on_red_team"
-            android:textOff="@string/red_team"
-            android:text="@string/red_team"
-            android:textSize="@dimen/text_size"
-            android:background="@color/red"
-            android:gravity="center"/>
+        <RadioGroup
+            android:checkedButton="@+id/offer"
+            android:id="@+id/toggle"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/pink_out_line"
+            android:orientation="horizontal">
 
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="@string/blue_team"
-            android:textOn="@string/on_blue_team"
-            android:textSize="@dimen/text_size"
-            android:background="@color/blue"/>
+            <RadioButton
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:id="@+id/red_team"
+                android:background="@drawable/toggle_widget_background_red"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/red_team"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:id="@+id/blue_team"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_widget_background_blue"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/blue_team"
+                android:textColor="@color/white" />
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ships_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_below="@+id/teams_layout"
-        android:layout_marginTop="40dp">
-    <ImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:contentDescription="@string/previous_arrow"
-        android:src="@drawable/ic_baseline_arrow_back_ios_style"/>
-        
+        android:layout_marginTop="40dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/previous_arrow"
+            android:src="@drawable/ic_baseline_arrow_back_ios_style" />
+
         <ImageSwitcher
             android:id="@+id/img_switcher"
             android:layout_width="200dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp" />
 
-    <ImageView
-        android:id="@+id/next_arrow"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="right"
-        android:contentDescription="@string/next_arrow_desc"
-        android:src="@drawable/ic_baseline_arrow_forward_style"/>
+        <ImageView
+            android:id="@+id/next_arrow"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="right"
+            android:contentDescription="@string/next_arrow_desc"
+            android:src="@drawable/ic_baseline_arrow_forward_style" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/nickname_ready_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_below="@+id/ships_layout"
-        android:layout_marginTop="40dp">
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/player_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/player_name"
-            android:fontFamily="@font/pixelart"
-            android:gravity="center_horizontal"
-            android:background="@drawable/rounded_edtit_text"/>
+            android:layout_below="@+id/nickname_ready_layout"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pixelart"
+                android:gravity="center_horizontal"
+                android:text="Player nickname"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/player_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pixelart"
+                android:gravity="center_horizontal"
+                android:hint="@string/player_name"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <ToggleButton
             android:id="@+id/ready_button"
+            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:shadowColor="@color/white"
+            android:textColor="@color/red"
+            android:backgroundTint="@color/translucent_grey"
             android:text="@string/ready"
-            android:onClick="startPadActivity"
-           />
+            android:textOn="Ready"
+            android:textOff="Ready?"/>
     </LinearLayout>
 </RelativeLayout>

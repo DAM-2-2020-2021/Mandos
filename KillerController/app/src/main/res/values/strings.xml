@@ -7,7 +7,7 @@
     <string name="previous_arrow">previous arrow</string>
     <string name="red_team">RED TEAM</string>
     <string name="blue_team">BLUE TEAM</string>
-    <string name="ready">Ready</string>
+    <string name="ready">Ready?</string>
     <string name="left_move">L</string>
     <string name="right_move">R</string>
     <string name="shoot">Shoot</string>
@@ -18,8 +18,11 @@
     <string name="pause_menu">Pause Menu</string>
     <string name="continues">Continue</string>
     <string name="exit">Exit</string>
-    <string name="waiting">Waiting</string>
+    <string name="waiting">Please wait…</string>
     <string name="you_win">YOU WIN</string>
     <string name="you_loose">YOU LOOSE</string>
     <string name="you_died">YOU DIED</string>
+    <string name="time_string">Time</string>
+    <string name="match_score">Match Score</string>
+    <string name="play">Play</string>
 </resources>

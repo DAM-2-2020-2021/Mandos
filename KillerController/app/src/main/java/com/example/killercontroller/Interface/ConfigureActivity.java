@@ -1,11 +1,8 @@
 package com.example.killercontroller.Interface;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
-import android.media.MediaActionSound;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -14,12 +11,14 @@ import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import android.widget.ViewSwitcher;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.killercontroller.Communication.Message;
 import com.example.killercontroller.Data.Singleton;
 import com.example.killercontroller.R;
 
@@ -30,18 +29,32 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
     private String playerName;
     private ImageView back, next;
     private int imgList[] = {R.drawable.nave1,
-            R.drawable.nave2,
-            R.drawable.nave3};
+            R.drawable.nave_tipo2,
+            R.drawable.nave_tipo3};
     private int currentIndex = 0;
     private int count = imgList.length;
-    private Singleton instance;
+    private Singleton singleton;
+    private int idServer;
+    private RadioButton blueTeam, redTeam;
+    private ToggleButton readyButton;
+    private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configure);
 
-        this.instance = Singleton.getInstance();
+        this.singleton = Singleton.getInstance();
+        singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
+            switch (serverMessage.getMessage()) {
+                case READY:
+                    startPadActivity();
+                    break;
+                default:
+                    System.out.println("Option not found.");
+            }
+        });
         this.img_switcher = (ImageSwitcher) findViewById(R.id.img_switcher);
 
         this.textViewPlayerName = (TextView) findViewById(R.id.player_name);
@@ -66,6 +79,15 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         this.back.setOnClickListener(this);
         this.next = (ImageView) findViewById(R.id.next_arrow);
         this.next.setOnClickListener(this);
+        this.blueTeam = (RadioButton) findViewById(R.id.blue_team);
+        this.blueTeam.setOnClickListener(this);
+        this.redTeam = (RadioButton) findViewById(R.id.red_team);
+        this.redTeam.setOnClickListener(this);
+        this.readyButton = (ToggleButton) findViewById(R.id.ready_button);
+        this.readyButton.setOnClickListener(this);
+
+
+
 
     }
 
@@ -120,18 +142,48 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                 }
                 this.img_switcher.setImageResource(this.imgList[this.currentIndex]);
                 break;
+            case R.id.blue_team:
+                //PASAR IP DE LA ACTIVIDAD ANTERIOR
+                Message message = new Message();
+                message.setMessageType(TEAM);
+                message.setMessage("blue");
+                this.singleton.getNodeManager().send(idServer, message);
+                break;
+            case R.id.red_team:
+                Message redMessage = new Message();
+                redMessage.setMessageType(TEAM);
+                redMessage.setMessage("red");
+                this.singleton.getNodeManager().send(idServer, redMessage);
+                break;
+            case R.id.ready_button:
+                if (this.readyButton.isChecked()) {
+                    Message shipType = new Message();
+                    shipType.setMessageType(String.valueOf(this.currentIndex));
+                    shipType.setMessage(SPACECRAFT_TYPE);
+                    Message readyMessage = new Message();
+                    readyMessage.setMessageType(READY);
+                    readyMessage.setMessage("true");
+                    this.singleton.getNodeManager().send(idServer, shipType);
+                    this.singleton.getNodeManager().send(idServer, readyMessage);
+                } else {
+
+                }
+                break;
             default:
                 System.out.println("Invalid option");
         }
     }
 
-    public void startPadActivity(View v) {
+    public void startPadActivity() {
 
         System.out.println(textViewPlayerName.getText().toString());
         Intent intent;
         intent = new Intent(this, PadActivity.class);
         intent.putExtra("SHIP", this.imgList[this.currentIndex]);
+        intent.putExtra("ID NODE SERVER", this.idServer);
+
         startActivity(intent);
+        this.singleton.getNodeManager().unregister(Message.class);
         ConfigureActivity.this.finish();
 
     }
@@ -140,10 +192,20 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         playerName = extras.getString("PLAYER KEY");
+        idServer = extras.getInt("ID NODE SERVER");
+        Message team = new Message();
+        Message ship = new Message();
+        Message ready = new Message();
+        team.setMessageType(TEAM);
+        team.setMessage("blue");
+        ship.setMessageType(SPACECRAFT_TYPE);
+        ship.setMessage("0");
+        ready.setMessageType(READY);
+        ready.setMessage("false");
+        this.singleton.getNodeManager().send(this.idServer, team);
+        this.singleton.getNodeManager().send(this.idServer, ship);
+        this.singleton.getNodeManager().send(this.idServer, ready);
 
-        if (playerName.equals("")) {
-            playerName = "Player";
-        }
         textViewPlayerName.setText(playerName);
     }
 
@@ -155,14 +217,14 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        if (this.instance.getMediaPlayer() != null && !this.instance.getMediaPlayer().isPlaying() ) this.instance.getMediaPlayer().start();
+        if (this.singleton.getMediaPlayer() != null) this.singleton.getMediaPlayer().start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (this.instance.getMediaPlayer() != null) {
-            this.instance.getMediaPlayer().pause();
+        if (this.singleton.getMediaPlayer() != null) {
+            this.singleton.getMediaPlayer().pause();
         }
     }
 }
