@@ -37,7 +37,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
     private int idServer;
     private RadioButton blueTeam, redTeam;
     private ToggleButton readyButton;
-    private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN";
+    private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", START = "START";
 
 
     @Override
@@ -47,9 +47,14 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
 
         this.singleton = Singleton.getInstance();
         singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
-            switch (serverMessage.getMessage()) {
-                case READY:
+            switch (serverMessage.getMessageType()) {
+                case START:
                     startPadActivity();
+                    break;
+                case ADMIN:
+                    System.out.println(serverMessage.getMessage());
+                    System.out.println("Paquete de admin");
+                    this.idServer = Integer.parseInt(serverMessage.getMessage());
                     break;
                 default:
                     System.out.println("Option not found.");
@@ -146,27 +151,30 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                 //PASAR IP DE LA ACTIVIDAD ANTERIOR
                 Message message = new Message();
                 message.setMessageType(TEAM);
-                message.setMessage("blue");
+                message.setMessage("BLUE");
                 this.singleton.getNodeManager().send(idServer, message);
                 break;
             case R.id.red_team:
                 Message redMessage = new Message();
                 redMessage.setMessageType(TEAM);
-                redMessage.setMessage("red");
+                redMessage.setMessage("RED");
                 this.singleton.getNodeManager().send(idServer, redMessage);
                 break;
             case R.id.ready_button:
                 if (this.readyButton.isChecked()) {
                     Message shipType = new Message();
-                    shipType.setMessageType(String.valueOf(this.currentIndex));
-                    shipType.setMessage(SPACECRAFT_TYPE);
+                    shipType.setMessageType(SPACECRAFT_TYPE);
+                    shipType.setMessage(String.valueOf(this.currentIndex));
                     Message readyMessage = new Message();
                     readyMessage.setMessageType(READY);
-                    readyMessage.setMessage("true");
+                    readyMessage.setMessage("TRUE");
                     this.singleton.getNodeManager().send(idServer, shipType);
                     this.singleton.getNodeManager().send(idServer, readyMessage);
                 } else {
-
+                    Message notReady = new Message();
+                    notReady.setMessageType(READY);
+                    notReady.setMessage("FALSE");
+                    this.singleton.getNodeManager().send(idServer,notReady);
                 }
                 break;
             default:
@@ -197,11 +205,11 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         Message ship = new Message();
         Message ready = new Message();
         team.setMessageType(TEAM);
-        team.setMessage("blue");
+        team.setMessage("BLUE");
         ship.setMessageType(SPACECRAFT_TYPE);
         ship.setMessage("0");
         ready.setMessageType(READY);
-        ready.setMessage("false");
+        ready.setMessage("");
         this.singleton.getNodeManager().send(this.idServer, team);
         this.singleton.getNodeManager().send(this.idServer, ship);
         this.singleton.getNodeManager().send(this.idServer, ready);

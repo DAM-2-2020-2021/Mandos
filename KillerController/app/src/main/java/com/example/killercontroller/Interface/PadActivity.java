@@ -36,7 +36,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     private Singleton singleton;
     private int currentScreen;
     private Chronometer chronometer;
-    private final String SCORE = "SCORE", DEAD = "DEAD", FINISH = "FINISH";
+    private final String SCORE = "SCORE", DEAD = "DEAD", FINISH = "FINISH", ADMIN = "ADMIN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +98,10 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                         showWinScreen();
                     }
                     break;
+                case ADMIN:
+                    this.currentScreen = Integer.parseInt(serverMessage.getMessage());
+                    break;
+
             }
         });
 

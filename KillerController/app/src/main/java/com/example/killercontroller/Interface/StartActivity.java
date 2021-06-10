@@ -40,10 +40,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private TextView startTextView, playButton;
     private Button testing;
     private String ip;
-    private int myAdminId = 31;
+    private int myAdminId = 0;
     private EditText name;
     private Dialog connectDialog;
-    private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN";
+    private boolean adminseted = false;
+    private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", NICKNAMEACK = "NICKNAMEACK";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,30 +158,36 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     public void setPlayerName() {
 
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_name);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        this.name = dialog.findViewById(R.id.name_user);
-        this.playButton = (Button) dialog.findViewById(R.id.play_btn);
-        this.playButton.setOnClickListener(StartActivity.this);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final Dialog dialog = new Dialog(StartActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_name);
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;
+                dialog.getWindow().setLayout(width, height);
+                dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+                name = dialog.findViewById(R.id.name_user);
+                playButton = (Button) dialog.findViewById(R.id.play_btn);
+                playButton.setOnClickListener(StartActivity.this);
 
-        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        System.out.println(ip);
-        System.out.println(ip);
-        System.out.println(ip);
-        System.out.println(ip);
-        System.out.println(ip);
+                WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+                ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+                System.out.println(ip);
+                System.out.println(ip);
+                System.out.println(ip);
+                System.out.println(ip);
+                System.out.println(ip);
 
-        dialog.setCancelable(false);
-        dialog.show();
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+        });
+
     }
 
     public void setLoadingScreen() {
@@ -204,14 +211,21 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         singleton.setNodeManager(new NodeManager(ip));
         List<String> ips = singleton.getNodeManager().getIpsForSubnet("172.20.10");
         singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
-            switch (serverMessage.getMessage()) {
+            switch (serverMessage.getMessageType()) {
                 case ADMIN:
-                    this.myAdminId = Integer.parseInt(serverMessage.getMessageType());
+
+                    this.myAdminId = Integer.parseInt(serverMessage.getMessage());
                     System.out.println("recibe el paquete");
-                    this.myAdminId = Integer.parseInt(serverMessage.getMessageType());
                     connectDialog.dismiss();
-                    setPlayerName();
+                    if (!this.adminseted) {
+                        setPlayerName();
+                        this.adminseted = true;
+                    }
                     break;
+                case NICKNAMEACK:
+                    startConfigureActivity(name.getText().toString());
+                default:
+                    System.out.println("Paquete inesperado." + serverMessage.getMessageType() + " " + serverMessage.getMessage());
             }
         });
         this.singleton.getNodeManager().startScan(ips);
@@ -237,7 +251,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 message.setMessage(this.name.getText().toString());
                 singleton.getNodeManager().send(this.myAdminId, message);
                 System.out.println(message.getMessage());
-                startConfigureActivity(name.getText().toString());
                 break;
             case R.id.button_testing_start:
                 connectDialog.dismiss();

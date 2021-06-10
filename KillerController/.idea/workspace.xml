@@ -9,64 +9,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8c9ddc1-7ed3-483e-9a87-131af71263b7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/custom_progress_bar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nave_tipo2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nave_tipo3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/pink_out_line.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/toggle_widget_background_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/toggle_widget_background_red.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/Channel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Communication/HealthChannel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Singleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Singleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_pad.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pad.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_start.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_start.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_name.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_name.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Menu/AceptarMenu.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Menu/CambioMenu.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Menu/MusicaMenu.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/AgujeroNegroAparicion.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/AgujeroNegroMortal.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/Teletransporte.m4a2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Agujero negro/Teletransporte2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Alert/Alert.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Disparo/Disparo.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Meteorito/DestruccionMeteorito.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Meteorito/DestruccionMeteorito2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/AgujeroNegroMuerte.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/Muerte 3.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/Muerte2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/MuerteColisionMeteorito.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Muerte/MuerteNormal.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Document sense títol.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Final/LastBattleParte1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Final/LastBattleParte2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/3.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/4.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/6.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/7.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Musica/Partida/MusicaPartida.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Disparo1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Disparo2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Disparo3.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/Escudo.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/PowerUp/PowerUpArmaAviso.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/Sons/Partida/Punto/SumarPunto.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/disparo.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,22 +228,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1619285454018" />
-    <state width="1491" height="177" key="GridCell.Tab.0.bottom" timestamp="1623251150467">
+    <state width="1491" height="177" key="GridCell.Tab.0.bottom" timestamp="1623314659832">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="177" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
-    <state width="1491" height="177" key="GridCell.Tab.0.center" timestamp="1623251150467">
+    <state width="1491" height="177" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623314659832" />
+    <state width="1491" height="177" key="GridCell.Tab.0.center" timestamp="1623314659832">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="177" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
-    <state width="1491" height="177" key="GridCell.Tab.0.left" timestamp="1623251150467">
+    <state width="1491" height="177" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623314659832" />
+    <state width="1491" height="177" key="GridCell.Tab.0.left" timestamp="1623314659832">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="177" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
-    <state width="1491" height="177" key="GridCell.Tab.0.right" timestamp="1623251150467">
+    <state width="1491" height="177" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623314659832" />
+    <state width="1491" height="177" key="GridCell.Tab.0.right" timestamp="1623314659832">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="177" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623251150467" />
+    <state width="1491" height="177" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623314659832" />
     <state width="1491" height="260" key="GridCell.Tab.1.bottom" timestamp="1622481894861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -346,7 +294,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java</url>
-          <line>59</line>
+          <line>64</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
