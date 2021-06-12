@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:forceDarkAllowed="false"
+    android:id="@+id/layout_name"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -39,6 +40,7 @@
         android:text="@string/play"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:backgroundTint="@color/translucent_grey"/>
 
 </LinearLayout>

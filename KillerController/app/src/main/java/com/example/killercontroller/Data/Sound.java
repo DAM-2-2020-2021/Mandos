@@ -3,10 +3,9 @@ package com.example.killercontroller.Data;
 import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 
+import com.example.killercontroller.Interface.ConfigureActivity;
 import com.example.killercontroller.R;
 
 public class Sound extends Activity{
@@ -71,8 +70,8 @@ public class Sound extends Activity{
         mp.start();
     }
 
-    public static void menuSelect(View v, float leftVolume, float rightVolume) {
-        MediaPlayer mp = MediaPlayer.create(v.getContext(), R.raw.menu_select);
+    public static void menuSelect(ConfigureActivity v, float leftVolume, float rightVolume) {
+        MediaPlayer mp = MediaPlayer.create(v, R.raw.menu_select);
         mp.setVolume(leftVolume, rightVolume);
         mp.start();
     }

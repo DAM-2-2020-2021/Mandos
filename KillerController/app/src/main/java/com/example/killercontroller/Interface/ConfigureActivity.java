@@ -20,7 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.killercontroller.Communication.Message;
 import com.example.killercontroller.Data.Singleton;
+import com.example.killercontroller.Data.Sound;
 import com.example.killercontroller.R;
+
+import java.util.Random;
 
 public class ConfigureActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -63,7 +66,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         this.img_switcher = (ImageSwitcher) findViewById(R.id.img_switcher);
 
         this.textViewPlayerName = (TextView) findViewById(R.id.player_name);
-        setPlayerName();
+
 
         this.img_switcher = (ImageSwitcher) findViewById(R.id.img_switcher);
         img_switcher.setFactory(new ViewSwitcher.ViewFactory() {
@@ -90,10 +93,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         this.redTeam.setOnClickListener(this);
         this.readyButton = (ToggleButton) findViewById(R.id.ready_button);
         this.readyButton.setOnClickListener(this);
-
-
-
-
+        setDefaultValues();
     }
 
     public void exitGame() {
@@ -137,6 +137,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                     this.currentIndex = this.imgList.length - 1;
                 }
                 this.img_switcher.setImageResource(this.imgList[this.currentIndex]);
+                Sound.notice(v,0.9f,0.9f);
                 break;
             case R.id.next_arrow:
                 this.img_switcher.setInAnimation(this, R.anim.from_left);
@@ -146,6 +147,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                     this.currentIndex = 0;
                 }
                 this.img_switcher.setImageResource(this.imgList[this.currentIndex]);
+                Sound.notice(v,0.9f,0.9f);
                 break;
             case R.id.blue_team:
                 //PASAR IP DE LA ACTIVIDAD ANTERIOR
@@ -153,12 +155,14 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                 message.setMessageType(TEAM);
                 message.setMessage("BLUE");
                 this.singleton.getNodeManager().send(idServer, message);
+                Sound.notice(v,0.9f,0.9f);
                 break;
             case R.id.red_team:
                 Message redMessage = new Message();
                 redMessage.setMessageType(TEAM);
                 redMessage.setMessage("RED");
                 this.singleton.getNodeManager().send(idServer, redMessage);
+                Sound.notice(v,0.9f,0.9f);
                 break;
             case R.id.ready_button:
                 if (this.readyButton.isChecked()) {
@@ -170,11 +174,23 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                     readyMessage.setMessage("TRUE");
                     this.singleton.getNodeManager().send(idServer, shipType);
                     this.singleton.getNodeManager().send(idServer, readyMessage);
+                    this.redTeam.setEnabled(false);
+                    this.blueTeam.setEnabled(false);
+                    this.back.setEnabled(false);
+                    this.next.setEnabled(false);
+                    this.readyButton.setTextColor(getResources().getColor(R.color.green));
+                    Sound.menuSelect(ConfigureActivity.this,0.9f,0.9f);
                 } else {
                     Message notReady = new Message();
                     notReady.setMessageType(READY);
                     notReady.setMessage("FALSE");
                     this.singleton.getNodeManager().send(idServer,notReady);
+                    this.redTeam.setEnabled(true);
+                    this.blueTeam.setEnabled(true);
+                    this.back.setEnabled(true);
+                    this.next.setEnabled(true);
+                    this.readyButton.setTextColor(getResources().getColor(R.color.red));
+                    Sound.menuSelect(ConfigureActivity.this,0.9f,0.9f);
                 }
                 break;
             default:
@@ -196,16 +212,25 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private void setPlayerName() {
+    private void setDefaultValues() {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         playerName = extras.getString("PLAYER KEY");
         idServer = extras.getInt("ID NODE SERVER");
+        String teamString;
+        Random rd = new Random();
+        if(rd.nextBoolean()){
+            teamString = "RED";
+            this.redTeam.setChecked(true);
+        }else{
+            teamString = "BLUE";
+            this.blueTeam.setChecked(true);
+        }
         Message team = new Message();
         Message ship = new Message();
         Message ready = new Message();
         team.setMessageType(TEAM);
-        team.setMessage("BLUE");
+        team.setMessage(teamString);
         ship.setMessageType(SPACECRAFT_TYPE);
         ship.setMessage("0");
         ready.setMessageType(READY);

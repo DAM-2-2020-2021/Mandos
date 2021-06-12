@@ -37,13 +37,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private Singleton singleton;
     private TableLayout table;
-    private TextView startTextView, playButton;
-    private Button testing;
+    private TextView startTextView;
+    private Button testing, playButton;
     private String ip;
     private int myAdminId = 0;
     private EditText name;
     private Dialog connectDialog;
-    private boolean adminseted = false;
+    private boolean adminseted = false, nicknameAck = false;
     private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", NICKNAMEACK = "NICKNAMEACK";
 
     @Override
@@ -52,10 +52,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_start);
 
         this.singleton = Singleton.getInstance();
-        this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
-        this.singleton.getMediaPlayer().setLooping(true);
-        this.singleton.getMediaPlayer().setVolume(0.2f, 0.2f);
-        this.singleton.getMediaPlayer().start();
         this.startTextView = (TextView) findViewById(R.id.start);
         this.startTextView.setOnClickListener(this);
 
@@ -213,7 +209,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
             switch (serverMessage.getMessageType()) {
                 case ADMIN:
-
                     this.myAdminId = Integer.parseInt(serverMessage.getMessage());
                     System.out.println("recibe el paquete");
                     connectDialog.dismiss();
@@ -223,6 +218,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     }
                     break;
                 case NICKNAMEACK:
+                    this.nicknameAck = true;
                     startConfigureActivity(name.getText().toString());
                 default:
                     System.out.println("Paquete inesperado." + serverMessage.getMessageType() + " " + serverMessage.getMessage());
@@ -249,7 +245,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     this.name.setText("Player");
                 }
                 message.setMessage(this.name.getText().toString());
+
+
                 singleton.getNodeManager().send(this.myAdminId, message);
+                this.playButton.setEnabled(false);
+                while (!this.nicknameAck) {
+                    try {
+                        Thread.sleep(2000);
+                        singleton.getNodeManager().send(this.myAdminId, message);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 System.out.println(message.getMessage());
                 break;
             case R.id.button_testing_start:
@@ -262,10 +269,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
-        this.singleton.getMediaPlayer().setLooping(true);
-        this.singleton.getMediaPlayer().setVolume(0.2f, 0.2f);
-        this.singleton.getMediaPlayer().start();
+        Singleton singleton = Singleton.getInstance();
+        singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_menu));
+        singleton.getMediaPlayer().setLooping(true);
+        singleton.getMediaPlayer().setVolume(0.2f, 0.2f);
+        singleton.getMediaPlayer().start();
     }
 
     @Override
