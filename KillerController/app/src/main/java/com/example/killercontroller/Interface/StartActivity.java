@@ -208,6 +208,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         List<String> ips = singleton.getNodeManager().getIpsForSubnet("172.20.10");
         singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
             switch (serverMessage.getMessageType()) {
+                case NICKNAMEACK:
+                    this.nicknameAck = true;
+                    System.out.println("ack received" + this.nicknameAck);
+                    startConfigureActivity(name.getText().toString());
+                    break;
                 case ADMIN:
                     this.myAdminId = Integer.parseInt(serverMessage.getMessage());
                     System.out.println("recibe el paquete");
@@ -217,9 +222,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         this.adminseted = true;
                     }
                     break;
-                case NICKNAMEACK:
-                    this.nicknameAck = true;
-                    startConfigureActivity(name.getText().toString());
                 default:
                     System.out.println("Paquete inesperado." + serverMessage.getMessageType() + " " + serverMessage.getMessage());
             }
@@ -245,16 +247,20 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     this.name.setText("Player");
                 }
                 message.setMessage(this.name.getText().toString());
-
-
-                singleton.getNodeManager().send(this.myAdminId, message);
+                sendName(message);
+                //singleton.getNodeManager().send(this.myAdminId, message);
                 this.playButton.setEnabled(false);
-                while (!this.nicknameAck) {
-                    try {
-                        Thread.sleep(2000);
-                        singleton.getNodeManager().send(this.myAdminId, message);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+                if (!this.nicknameAck) {
+                    for (int i = 0; i < 5 ; i++) {
+                        try {
+                            Thread.sleep(2000);
+                            // call some methods here
+                            sendName(message);
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 System.out.println(message.getMessage());
@@ -263,7 +269,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 connectDialog.dismiss();
                 setPlayerName();
         }
+    }
 
+    private void sendName(Message message) {
+        singleton.getNodeManager().send(this.myAdminId, message);
     }
 
     @Override
