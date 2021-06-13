@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.killercontroller.Communication.Message;
 import com.example.killercontroller.Data.Singleton;
+import com.example.killercontroller.Data.Sound;
 import com.example.killercontroller.R;
 
 import java.util.List;
@@ -237,33 +238,23 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         System.out.println(v.getId());
         switch (v.getId()) {
             case R.id.start:
+                Sound.notice(v, 0.9f, 0.9f);
                 setLoadingScreen();
                 break;
             case R.id.play_btn:
-                Message message = new Message();
-                System.out.println(this.name.getText().toString());
-                message.setMessageType("NICKNAME");
-                if (this.name.getText().toString().equals("")) {
-                    this.name.setText("Player");
-                }
-                message.setMessage(this.name.getText().toString());
-                sendName(message);
-                //singleton.getNodeManager().send(this.myAdminId, message);
+                Sound.alert(v, 0.9f, 0.9f);
                 this.playButton.setEnabled(false);
-
-                if (!this.nicknameAck) {
-                    for (int i = 0; i < 5 ; i++) {
-                        try {
-                            Thread.sleep(2000);
-                            // call some methods here
-                            sendName(message);
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                int tries = 0;
+                Message message = new Message();
+                System.out.println(name.getText().toString());
+                message.setMessageType("NICKNAME");
+                if (name.getText().toString().equals("")) {
+                    name.setText("Player");
                 }
-                System.out.println(message.getMessage());
+                System.out.println(nicknameAck);
+                message.setMessage(name.getText().toString());
+                sendName(message);
+                System.out.println("PAQUETE NICK ENVIADO");
                 break;
             case R.id.button_testing_start:
                 connectDialog.dismiss();

@@ -36,7 +36,8 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     private Singleton singleton;
     private int currentScreen;
     private Chronometer chronometer;
-    private final String SCORE = "SCORE", DEAD = "DEAD", FINISH = "FINISH", ADMIN = "ADMIN";
+    private String teamValue;
+    private final String SCORE = "SCORE", DEAD = "DEAD", FINISH = "FINISH", ADMIN = "ADMIN", TEAM_RED_VALUE = "RED", TEAM_BLUE_VALUE = "BLUE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +46,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
 
         this.singleton = Singleton.getInstance();
         this.singleton.getMediaPlayer().stop();
-        this.singleton.setMediaPlayer(MediaPlayer.create(this, R.raw.musica_partida));
-        this.singleton.getMediaPlayer().setVolume(0.2f, 0.2f);
-        this.singleton.getMediaPlayer().setLooping(true);
-        this.singleton.getMediaPlayer().start();
-
+        this.singleton.getMediaPlayer().release();
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -64,6 +61,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         this.shipPad = (ImageView) findViewById(R.id.ship_pad);
+        this.teamValue = extras.getString("TEAM");
 
         Drawable d = getResources().getDrawable(extras.getInt("SHIP"));
         this.shipPad.setImageDrawable(d);
@@ -94,11 +92,20 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                     showDeathScreen();
                     break;
                 case FINISH:
-                    if (Integer.parseInt(this.redScore.getText().toString()) > Integer.parseInt(this.blueScore.getText().toString())) {
-                        showLooseScreen();
+                    if (this.teamValue.equals(TEAM_RED_VALUE)) {
+                        if (Integer.parseInt(this.redScore.getText().toString()) > Integer.parseInt(this.blueScore.getText().toString())) {
+                            showWinScreen();
+                        } else {
+                            showLooseScreen();
+                        }
                     } else {
-                        showWinScreen();
+                        if (Integer.parseInt(this.redScore.getText().toString()) > Integer.parseInt(this.blueScore.getText().toString())) {
+                            showLooseScreen();
+                        } else {
+                            showWinScreen();
+                        }
                     }
+
                     break;
                 case ADMIN:
                     this.currentScreen = Integer.parseInt(serverMessage.getMessage());
@@ -246,7 +253,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onPause() {
         super.onPause();
-        this.singleton.getMediaPlayer().stop();
     }
 
     /**
@@ -268,7 +274,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
                 dialog.show();
                 Sound.death(PadActivity.this.getBaseContext(), 0.7f, 0.7f);
-                new CountDownTimer(5000, 1000) {
+                new CountDownTimer(3000, 1000) {
 
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -305,6 +311,12 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 dialog.show();
 
                 TextView looseTextView = (TextView) dialog.findViewById(R.id.loose_message);
+                TextView redScore = (TextView) findViewById(R.id.red_score);
+                TextView blueScore = (TextView) findViewById(R.id.blue_score);
+                TextView dialogRedScore = (TextView) dialog.findViewById(R.id.red_score_loose);
+                TextView dialogBlueScore = (TextView) dialog.findViewById(R.id.blue_score_loose);
+                dialogRedScore.setText(redScore.getText().toString());
+                dialogBlueScore.setText(blueScore.getText().toString());
                 Context context = PadActivity.this.getApplicationContext();
                 Animation loose = AnimationUtils.loadAnimation(context, R.anim.loose_animation);
                 looseTextView.startAnimation(loose);
@@ -333,6 +345,13 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 dialog.show();
 
                 TextView looseTextView = (TextView) dialog.findViewById(R.id.win_message);
+                TextView redScore = (TextView) findViewById(R.id.red_score);
+                TextView blueScore = (TextView) findViewById(R.id.blue_score);
+                TextView dialogRedScore = (TextView) dialog.findViewById(R.id.red_score_win);
+                TextView dialogBlueScore = (TextView) dialog.findViewById(R.id.blue_score_win);
+                dialogRedScore.setText(redScore.getText().toString());
+                dialogBlueScore.setText(blueScore.getText().toString());
+
                 Context context = PadActivity.this.getApplicationContext();
                 Animation loose = AnimationUtils.loadAnimation(context, R.anim.win_animation);
                 looseTextView.startAnimation(loose);
@@ -343,7 +362,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        if (this.singleton.getMediaPlayer() != null) this.singleton.getMediaPlayer().start();
     }
 
 }
