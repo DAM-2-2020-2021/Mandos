@@ -121,15 +121,19 @@
         </LinearLayout>
 
         <ToggleButton
-            android:id="@+id/ready_button"
-            android:layout_margin="20dp"
+        android:id="@+id/ready_button"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/white"
+        android:textColor="@color/red"
+        android:backgroundTint="@color/translucent_grey"
+        android:text="@string/ready"
+        android:textOn="Ready"
+        android:textOff="Ready?"/>
+        <Button
+            android:id="@+id/pad_activity"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:shadowColor="@color/white"
-            android:textColor="@color/red"
-            android:backgroundTint="@color/translucent_grey"
-            android:text="@string/ready"
-            android:textOn="Ready"
-            android:textOff="Ready?"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>

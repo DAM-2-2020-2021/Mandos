@@ -84,12 +84,14 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         this.blueScore = (TextView) findViewById(R.id.blue_score);
 
         this.singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
-            switch (serverMessage.getMessage()) {
+            System.out.println(serverMessage.getMessage());
+            switch (serverMessage.getMessageType()) {
                 case SCORE:
                     updateScores(serverMessage);
                     System.out.println("recibe el paquete de puntuacion");
                     break;
                 case DEAD:
+                    showDeathScreen();
                     break;
                 case FINISH:
                     if (Integer.parseInt(this.redScore.getText().toString()) > Integer.parseInt(this.blueScore.getText().toString())) {
@@ -101,7 +103,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 case ADMIN:
                     this.currentScreen = Integer.parseInt(serverMessage.getMessage());
                     break;
-
             }
         });
 
@@ -204,9 +205,35 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public boolean onLongClick(View v) {
-        Toast.makeText(this, "LongPress", Toast.LENGTH_SHORT).show();
-        Vibrator vibe = (Vibrator) PadActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
-        vibe.vibrate(80);
+       /* Vibrator vibe = (Vibrator) PadActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+        while (v.isPressed()) {
+            switch (v.getId()) {
+                case R.id.left:
+                    Toast.makeText(this, "left", Toast.LENGTH_SHORT).show();
+                    vibe.vibrate(80);
+                    // showDeathScreen();
+                    break;
+                case R.id.right:
+                    Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
+                    vibe.vibrate(80);
+                    //showLooseScreen();
+                    // this.channel.send();
+                    break;
+                case R.id.move:
+                    Toast.makeText(this, "Moving", Toast.LENGTH_SHORT).show();
+                    vibe.vibrate(80);
+                    //  showWinScreen();
+                    // this.channel.send();;
+                    break;
+                case R.id.shoot:
+                    Toast.makeText(this, "Shooting", Toast.LENGTH_SHORT).show();
+                    vibe.vibrate(80);
+                    Sound.shoot(v, 0.9f, 0.9f);
+                    break;
+                default:
+                    System.out.println("Option not found");
+            }
+        }*/
         return false;
     }
 
@@ -226,30 +253,34 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
      * Show a custom dialog for a death screen
      */
     private void showDeathScreen() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.death_screen);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        dialog.show();
-        Sound.death(PadActivity.this.getBaseContext(), 0.7f, 0.7f);
-        new CountDownTimer(5000, 1000) {
-
+        runOnUiThread(new Runnable() {
             @Override
-            public void onTick(long millisUntilFinished) {
-            }
+            public void run() {
+                final Dialog dialog = new Dialog(PadActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.death_screen);
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;
+                dialog.getWindow().setLayout(width, height);
+                dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+                dialog.show();
+                Sound.death(PadActivity.this.getBaseContext(), 0.7f, 0.7f);
+                new CountDownTimer(5000, 1000) {
 
-            @Override
-            public void onFinish() {
-                dialog.dismiss();
-            }
-        }.start();
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
 
+                    @Override
+                    public void onFinish() {
+                        dialog.dismiss();
+                    }
+                }.start();
+            }
+        });
     }
 
     /**
@@ -279,7 +310,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 looseTextView.startAnimation(loose);
             }
         });
-
     }
 
 

@@ -40,6 +40,7 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
     private int idServer;
     private RadioButton blueTeam, redTeam;
     private ToggleButton readyButton;
+    private Button pad_activity;
     private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", START = "START";
 
 
@@ -93,6 +94,8 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         this.redTeam.setOnClickListener(this);
         this.readyButton = (ToggleButton) findViewById(R.id.ready_button);
         this.readyButton.setOnClickListener(this);
+        this.pad_activity = (Button) findViewById(R.id.pad_activity);
+        this.pad_activity.setOnClickListener(this);
         setDefaultValues();
     }
 
@@ -192,6 +195,9 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                     this.readyButton.setTextColor(getResources().getColor(R.color.red));
                     Sound.menuSelect(ConfigureActivity.this,0.9f,0.9f);
                 }
+                break;
+            case R.id.pad_activity:
+                startPadActivity();
                 break;
             default:
                 System.out.println("Invalid option");
