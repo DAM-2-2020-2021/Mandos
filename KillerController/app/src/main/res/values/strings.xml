@@ -25,4 +25,5 @@
     <string name="time_string">Time</string>
     <string name="match_score">Match Score</string>
     <string name="play">Play</string>
+    <string name="draw">DRAW</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.killercontroller.Interface;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,9 +8,11 @@ import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.text.format.Formatter;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -33,17 +36,19 @@ import java.util.List;
 
 import eu.cifpfbmoll.netlib.node.NodeManager;
 
-public class StartActivity extends AppCompatActivity implements View.OnClickListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
 
     private Singleton singleton;
     private TableLayout table;
-    private TextView startTextView;
-    private Button testing, playButton;
+    private TextView startTextView, testing;
+    private Handler mHandler;
+    private Button playButton;
     private String ip;
     private int myAdminId = 0;
     private EditText name;
-    private Dialog connectDialog;
+    private Dialog connectDialog,playerDialog;
+    private boolean pressedUp = false;
     private boolean adminseted = false, nicknameAck = false;
     private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", NICKNAMEACK = "NICKNAMEACK";
 
@@ -145,11 +150,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void startConfigureActivity(String playerName) {
+        playerDialog.dismiss();
         Intent intent;
         intent = new Intent(this, ConfigureActivity.class);
         intent.putExtra("PLAYER KEY", playerName);
         intent.putExtra("ID NODE SERVER", this.myAdminId);
         startActivity(intent);
+        this.finish();
         this.singleton.getNodeManager().unregister(Message.class);
     }
 
@@ -158,18 +165,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final Dialog dialog = new Dialog(StartActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_name);
+                playerDialog = new Dialog(StartActivity.this);
+                playerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                playerDialog.setContentView(R.layout.dialog_name);
                 Display display = getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
                 int width = size.x;
                 int height = size.y;
-                dialog.getWindow().setLayout(width, height);
-                dialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-                name = dialog.findViewById(R.id.name_user);
-                playButton = (Button) dialog.findViewById(R.id.play_btn);
+                playerDialog.getWindow().setLayout(width, height);
+                playerDialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
+                name = playerDialog.findViewById(R.id.name_user);
+                playButton = (Button) playerDialog.findViewById(R.id.play_btn);
                 playButton.setOnClickListener(StartActivity.this);
 
                 WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
@@ -180,8 +187,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 System.out.println(ip);
                 System.out.println(ip);
 
-                dialog.setCancelable(false);
-                dialog.show();
+                playerDialog.setCancelable(false);
+                playerDialog.show();
             }
         });
 
@@ -199,14 +206,17 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         int height = size.y;
         connectDialog.getWindow().setLayout(width, height);
         connectDialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        this.testing = (Button) connectDialog.findViewById(R.id.button_testing_start);
-        this.testing.setOnClickListener(StartActivity.this);
+        this.testing = (TextView) connectDialog.findViewById(R.id.button_testing_start);
+        // this.testing.setOnClickListener(StartActivity.this);
+        this.testing.setOnLongClickListener(this);
+
 
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         System.out.println(ip);
         singleton.setNodeManager(new NodeManager(ip));
-        List<String> ips = singleton.getNodeManager().getIpsForSubnet("172.20.10");
+        String subnet = this.singleton.getNodeManager().getSubnet(ip);
+        List<String> ips = singleton.getNodeManager().getIpsForSubnet(subnet);
         singleton.getNodeManager().register(Message.class, (id, serverMessage) -> {
             switch (serverMessage.getMessageType()) {
                 case NICKNAMEACK:
@@ -253,14 +263,24 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 }
                 System.out.println(nicknameAck);
                 message.setMessage(name.getText().toString());
-                sendName(message);
-                System.out.println("PAQUETE NICK ENVIADO");
+                while (!nicknameAck && tries <= 5) {
+                    sendName(message);
+                    tries += 1;
+                    System.out.println("PAQUETE NICK ENVIADO");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
             case R.id.button_testing_start:
-                connectDialog.dismiss();
-                setPlayerName();
+                //connectDialog.dismiss();
+                //setPlayerName();
+
         }
     }
+
 
     private void sendName(Message message) {
         singleton.getNodeManager().send(this.myAdminId, message);
@@ -282,5 +302,42 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (this.singleton.getMediaPlayer() != null) {
             this.singleton.getMediaPlayer().pause();
         }
+    }
+
+
+    @Override
+    public boolean onLongClick(View view) {
+        final Runnable mAction = new Runnable() {
+            @Override
+            public void run() {
+                //do something here
+                System.out.println("Entra en el run");
+                mHandler.postDelayed(this, 1000);
+            }
+        };
+
+        mHandler = new Handler();
+        mHandler.postDelayed(mAction, 0);
+
+        testing.setOnTouchListener(new View.OnTouchListener() {
+
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_MOVE:
+                    case MotionEvent.ACTION_UP:
+                        if (mHandler == null) return true;
+                        mHandler.removeCallbacks(mAction);
+                        mHandler = null;
+                        testing.setOnTouchListener(null);
+                        return false;
+                }
+                return false;
+            }
+
+        });
+        return true;
     }
 }

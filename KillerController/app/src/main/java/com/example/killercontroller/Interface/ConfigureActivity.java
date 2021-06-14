@@ -123,6 +123,10 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(ConfigureActivity.this, StartActivity.class);
+                startActivity(intent);
+                singleton.setNodeManager(null);
                 ConfigureActivity.this.finish();
             }
         });
