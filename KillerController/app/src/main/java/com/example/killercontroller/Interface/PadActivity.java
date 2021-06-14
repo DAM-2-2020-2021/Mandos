@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -162,7 +161,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 }
                 redScore.setText(scores[0]);
                 blueScore.setText(scores[1]);
-                showDeathScreen();
             }
         });
     }
@@ -183,7 +181,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 right.setMessageType("MOVEMENT");
                 right.setMessage("RIGHT");
                 this.singleton.getNodeManager().send(this.currentScreen, right);
-                Toast.makeText(this, "Right", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
                 break;
             case R.id.move:
@@ -191,7 +188,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 move.setMessageType("MOVEMENT");
                 move.setMessage("MOVE");
                 this.singleton.getNodeManager().send(this.currentScreen, move);
-                Toast.makeText(this, "Moving", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
                 break;
             case R.id.shoot:
@@ -199,7 +195,6 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
                 shoot.setMessageType("SHOOT");
                 shoot.setMessage("SHOOT");
                 this.singleton.getNodeManager().send(this.currentScreen, shoot);
-                Toast.makeText(this, "Shooting", Toast.LENGTH_SHORT).show();
                 vibe.vibrate(80);
                 Sound.shoot(v, 0.9f, 0.9f);
                 break;
@@ -402,13 +397,13 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     public void startInitialActivity() {
-
-        // this.singleton.getNodeManager().removeNodeId(this.currentScreen);
-        Intent intent;
-        intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
-        this.singleton.getNodeManager().unregister(Message.class);
-        this.singleton.setNodeManager(null);
+        if(this.singleton.getNodeManager() != null){
+            this.singleton.getNodeManager().removeNodeId(this.currentScreen);
+            Intent intent;
+            intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            this.singleton.setNodeManager(null);
+        }
     }
 
     @Override

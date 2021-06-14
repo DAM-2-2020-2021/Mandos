@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,7 +37,7 @@ import java.util.List;
 
 import eu.cifpfbmoll.netlib.node.NodeManager;
 
-public class StartActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private Singleton singleton;
@@ -208,8 +209,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         connectDialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
         this.testing = (TextView) connectDialog.findViewById(R.id.button_testing_start);
         // this.testing.setOnClickListener(StartActivity.this);
-        this.testing.setOnLongClickListener(this);
-
 
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
@@ -231,6 +230,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     if (!this.adminseted) {
                         setPlayerName();
                         this.adminseted = true;
+                        showToast();
                     }
                     break;
                 default:
@@ -243,6 +243,16 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    private void showToast(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(StartActivity.this.getBaseContext(),"Connected",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
     @Override
     public void onClick(View v) {
         System.out.println(v.getId());
@@ -252,7 +262,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 setLoadingScreen();
                 break;
             case R.id.play_btn:
-                Sound.alert(v, 0.9f, 0.9f);
+                Sound.notice(v, 0.9f, 0.9f);
                 this.playButton.setEnabled(false);
                 int tries = 0;
                 Message message = new Message();
@@ -302,42 +312,5 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (this.singleton.getMediaPlayer() != null) {
             this.singleton.getMediaPlayer().pause();
         }
-    }
-
-
-    @Override
-    public boolean onLongClick(View view) {
-        final Runnable mAction = new Runnable() {
-            @Override
-            public void run() {
-                //do something here
-                System.out.println("Entra en el run");
-                mHandler.postDelayed(this, 1000);
-            }
-        };
-
-        mHandler = new Handler();
-        mHandler.postDelayed(mAction, 0);
-
-        testing.setOnTouchListener(new View.OnTouchListener() {
-
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_MOVE:
-                    case MotionEvent.ACTION_UP:
-                        if (mHandler == null) return true;
-                        mHandler.removeCallbacks(mAction);
-                        mHandler = null;
-                        testing.setOnTouchListener(null);
-                        return false;
-                }
-                return false;
-            }
-
-        });
-        return true;
     }
 }
