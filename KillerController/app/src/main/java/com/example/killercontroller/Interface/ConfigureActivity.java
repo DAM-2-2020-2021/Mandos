@@ -19,8 +19,8 @@ import android.widget.ViewSwitcher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.killercontroller.Communication.Message;
-import com.example.killercontroller.Data.Singleton;
-import com.example.killercontroller.Data.Sound;
+import com.example.killercontroller.Utiilities.Singleton;
+import com.example.killercontroller.Utiilities.Sound;
 import com.example.killercontroller.R;
 
 import java.util.Random;
@@ -40,10 +40,8 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
     private int idServer;
     private RadioButton blueTeam, redTeam;
     private ToggleButton readyButton;
-    private Button pad_activity;
     private String teamValue;
-    private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", START = "START", TEAM_RED_VALUE = "RED", TEAM_BLUE_VALUE = "BLUE";
-
+    private final String TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", START = "START", TEAM_RED_VALUE = "RED", TEAM_BLUE_VALUE = "BLUE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,11 +93,12 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         this.redTeam.setOnClickListener(this);
         this.readyButton = (ToggleButton) findViewById(R.id.ready_button);
         this.readyButton.setOnClickListener(this);
-       // this.pad_activity = (Button) findViewById(R.id.pad_activity);
-//        this.pad_activity.setOnClickListener(this);
         setDefaultValues();
     }
 
+    /**
+     * Método que crea un dialogo para volver a la actividad principal.
+     */
     public void exitGame() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -133,6 +132,93 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         dialog.show();
     }
 
+    /**
+     * Método que setea unos valores por defecto en la actividad del mando y en la aplicación del
+     * escritorio para un jugador
+     */
+    private void setDefaultValues() {
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        playerName = extras.getString("PLAYER KEY");
+        idServer = extras.getInt("ID NODE SERVER");
+        Random rd = new Random();
+        if (rd.nextBoolean()) {
+            teamValue = TEAM_RED_VALUE;
+            this.redTeam.setChecked(true);
+        } else {
+            teamValue = TEAM_BLUE_VALUE;
+            this.blueTeam.setChecked(true);
+        }
+        Message team = new Message();
+        Message ship = new Message();
+        Message ready = new Message();
+        team.setMessageType(this.TEAM);
+        team.setMessage(this.teamValue);
+        ship.setMessageType(SPACECRAFT_TYPE);
+        ship.setMessage("0");
+        ready.setMessageType(this.READY);
+        ready.setMessage("");
+        this.singleton.getNodeManager().send(this.idServer, team);
+        this.singleton.getNodeManager().send(this.idServer, ship);
+        this.singleton.getNodeManager().send(this.idServer, ready);
+
+        textViewPlayerName.setText(playerName);
+    }
+
+    /**
+     * Método que recoge unos valores e inicia el mando con unos valores predefinidos.
+     */
+    public void startPadActivity() {
+
+        System.out.println(textViewPlayerName.getText().toString());
+        Intent intent;
+        intent = new Intent(this, PadActivity.class);
+        int imgId = 0;
+        switch (this.currentIndex) {
+            case 0:
+                if (this.teamValue.equals(TEAM_RED_VALUE)) {
+                    imgId = R.drawable.nave_tipo1_roja;
+                } else {
+                    imgId = R.drawable.nave_tipo1_azul;
+                }
+                break;
+            case 1:
+                if (this.teamValue.equals(TEAM_RED_VALUE)) {
+                    imgId = R.drawable.nave_tipo2_rojo;
+                } else {
+                    imgId = R.drawable.nave_tipo2_azul;
+                }
+                break;
+            case 2:
+                if (this.teamValue.equals(TEAM_RED_VALUE)) {
+                    imgId = R.drawable.nave_tipo3_rojo;
+                } else {
+                    imgId = R.drawable.nave_tipo3_azul;
+                }
+                break;
+        }
+        intent.putExtra("SHIP", imgId);
+        intent.putExtra("ID NODE SERVER", this.idServer);
+        intent.putExtra("TEAM", this.teamValue);
+
+        startActivity(intent);
+        this.singleton.getNodeManager().unregister(Message.class);
+        ConfigureActivity.this.finish();
+
+    }
+
+    /**
+     * Método que sobreescribe la accion de ir hacia a tras de la actividad.
+     */
+    @Override
+    public void onBackPressed() {
+        exitGame();
+    }
+
+    /**
+     * Método que sobreescribre la accion de hacer clic.
+     * @param v vista sobre la que se hace clic.
+     */
     @Override
     public void onClick(View v) {
 
@@ -203,99 +289,28 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                     Sound.menuSelect(ConfigureActivity.this, 0.9f, 0.9f);
                 }
                 break;
-         /*   case R.id.pad_activity:
-                startPadActivity();
-                break;*/
             default:
                 System.out.println("Invalid option");
         }
     }
 
-    public void startPadActivity() {
-
-        System.out.println(textViewPlayerName.getText().toString());
-        Intent intent;
-        intent = new Intent(this, PadActivity.class);
-        int imgId = 0;
-        switch (this.currentIndex) {
-            case 0:
-                if (this.teamValue.equals(TEAM_RED_VALUE)) {
-                    imgId = R.drawable.nave_tipo1_roja;
-                } else {
-                    imgId = R.drawable.nave_tipo1_azul;
-                }
-                break;
-            case 1:
-                if (this.teamValue.equals(TEAM_RED_VALUE)) {
-                    imgId = R.drawable.nave_tipo2_rojo;
-                } else {
-                    imgId = R.drawable.nave_tipo2_azul;
-                }
-                break;
-            case 2:
-                if (this.teamValue.equals(TEAM_RED_VALUE)) {
-                    imgId = R.drawable.nave_tipo3_rojo;
-                } else {
-                    imgId = R.drawable.nave_tipo3_azul;
-                }
-                break;
-        }
-        intent.putExtra("SHIP", imgId);
-        intent.putExtra("ID NODE SERVER", this.idServer);
-        intent.putExtra("TEAM", this.teamValue);
-
-
-        startActivity(intent);
-        this.singleton.getNodeManager().unregister(Message.class);
-        ConfigureActivity.this.finish();
-
-    }
-
-    private void setDefaultValues() {
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        playerName = extras.getString("PLAYER KEY");
-        idServer = extras.getInt("ID NODE SERVER");
-        Random rd = new Random();
-        if (rd.nextBoolean()) {
-            teamValue = TEAM_RED_VALUE;
-            this.redTeam.setChecked(true);
-        } else {
-            teamValue = TEAM_BLUE_VALUE;
-            this.blueTeam.setChecked(true);
-        }
-        Message team = new Message();
-        Message ship = new Message();
-        Message ready = new Message();
-        team.setMessageType(this.TEAM);
-        team.setMessage(this.teamValue);
-        ship.setMessageType(SPACECRAFT_TYPE);
-        ship.setMessage("0");
-        ready.setMessageType(this.READY);
-        ready.setMessage("");
-        this.singleton.getNodeManager().send(this.idServer, team);
-        this.singleton.getNodeManager().send(this.idServer, ship);
-        this.singleton.getNodeManager().send(this.idServer, ready);
-
-        textViewPlayerName.setText(playerName);
-    }
-
-    @Override
-    public void onBackPressed() {
-        exitGame();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (this.singleton.getMediaPlayer() != null) this.singleton.getMediaPlayer().start();
-    }
-
+    /**
+     * Método que sobreescribre la accion de detener la aplicacion.
+     */
     @Override
     protected void onPause() {
         super.onPause();
         if (this.singleton.getMediaPlayer() != null) {
             this.singleton.getMediaPlayer().pause();
         }
+    }
+
+    /**
+     * Método que sobreescribre la accion de reanudar la aplicacion.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.singleton.getMediaPlayer() != null) this.singleton.getMediaPlayer().start();
     }
 }

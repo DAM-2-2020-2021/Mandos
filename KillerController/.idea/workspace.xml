@@ -10,18 +10,18 @@
   <component name="ChangeListManager">
     <list default="true" id="f8c9ddc1-7ed3-483e-9a87-131af71263b7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Singleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Utiilities/Singleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Data/Sound.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Utiilities/Sound.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/pink_out_line.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/pink_out_line.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_30" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="16da8f4f" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -345,18 +345,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java</url>
-          <line>69</line>
+          <line>67</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/eu.cifpfbmoll/netlib/0.7/f2ce934b0f19a922499346a5b96e604f39dd0405/netlib-0.7.jar!/eu/cifpfbmoll/netlib/node/NodeServer.class</url>
           <line>34</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java</url>
-          <line>283</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

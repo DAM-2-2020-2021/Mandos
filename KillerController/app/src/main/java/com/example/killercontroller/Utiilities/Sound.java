@@ -1,4 +1,4 @@
-package com.example.killercontroller.Data;
+package com.example.killercontroller.Utiilities;
 
 import android.app.Activity;
 import android.content.Context;

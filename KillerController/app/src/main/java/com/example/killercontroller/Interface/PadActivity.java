@@ -24,8 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.killercontroller.Communication.Message;
-import com.example.killercontroller.Data.Singleton;
-import com.example.killercontroller.Data.Sound;
+import com.example.killercontroller.Utiilities.Singleton;
+import com.example.killercontroller.Utiilities.Sound;
 import com.example.killercontroller.R;
 
 public class PadActivity extends AppCompatActivity implements View.OnClickListener {
@@ -116,6 +116,9 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Método que crea un dialogo para volver a la actividad principal.
+     */
     public void exitGame() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -148,74 +151,8 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         dialog.show();
     }
 
-    private void updateScores(Message serverMessage) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TextView redScore = (TextView) findViewById(R.id.red_score);
-                TextView blueScore = (TextView) findViewById(R.id.blue_score);
-                String scoreFromServer = serverMessage.getMessage();
-                String[] scores = scoreFromServer.split(":");
-                for (int i = 0; i < scores.length; i++) {
-                    System.out.println(scores[i]);
-                }
-                redScore.setText(scores[0]);
-                blueScore.setText(scores[1]);
-            }
-        });
-    }
-
-    @Override
-    public void onClick(View v) {
-        Vibrator vibe = (Vibrator) PadActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
-        switch (v.getId()) {
-            case R.id.left:
-                Message left = new Message();
-                left.setMessageType("MOVEMENT");
-                left.setMessage("LEFT");
-                this.singleton.getNodeManager().send(this.currentScreen, left);
-                vibe.vibrate(80);
-                break;
-            case R.id.right:
-                Message right = new Message();
-                right.setMessageType("MOVEMENT");
-                right.setMessage("RIGHT");
-                this.singleton.getNodeManager().send(this.currentScreen, right);
-                vibe.vibrate(80);
-                break;
-            case R.id.move:
-                Message move = new Message();
-                move.setMessageType("MOVEMENT");
-                move.setMessage("MOVE");
-                this.singleton.getNodeManager().send(this.currentScreen, move);
-                vibe.vibrate(80);
-                break;
-            case R.id.shoot:
-                Message shoot = new Message();
-                shoot.setMessageType("SHOOT");
-                shoot.setMessage("SHOOT");
-                this.singleton.getNodeManager().send(this.currentScreen, shoot);
-                vibe.vibrate(80);
-                Sound.shoot(v, 0.9f, 0.9f);
-                break;
-            default:
-                System.out.println("Option not found");
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        // super.onBackPressed();
-        exitGame();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
     /**
-     * Show a custom dialog for a death screen
+     * Crea un dialogo personalizado para la pantalla de muerte
      */
     private void showDeathScreen() {
         runOnUiThread(new Runnable() {
@@ -260,7 +197,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     /**
-     * Show a custom dialog for a loose screen
+     * Crea un dialogo personalizado para la pantalla de perder
      */
     private void showLooseScreen() {
 
@@ -306,7 +243,7 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     /**
-     * Show a custom dialog for a win screen
+     * Crea un dialogo personalizado para la pantalla de ganar
      */
     private void showWinScreen() {
         runOnUiThread(new Runnable() {
@@ -352,6 +289,9 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
 
+    /**
+     * Crea un dialogo personalizado para la pantalla de empate
+     */
     private void showDrawScreen() {
 
         runOnUiThread(new Runnable() {
@@ -396,6 +336,30 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
 
+    /**
+     * Método usado para actualizar la puntuación en la pantalla.
+     * @param serverMessage paquete que contiene la información.
+     */
+    private void updateScores(Message serverMessage) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView redScore = (TextView) findViewById(R.id.red_score);
+                TextView blueScore = (TextView) findViewById(R.id.blue_score);
+                String scoreFromServer = serverMessage.getMessage();
+                String[] scores = scoreFromServer.split(":");
+                for (int i = 0; i < scores.length; i++) {
+                    System.out.println(scores[i]);
+                }
+                redScore.setText(scores[0]);
+                blueScore.setText(scores[1]);
+            }
+        });
+    }
+
+    /**
+     * Método para iniciar la actividad inicial.
+     */
     public void startInitialActivity() {
         if(this.singleton.getNodeManager() != null){
             this.singleton.getNodeManager().removeNodeId(this.currentScreen);
@@ -406,6 +370,66 @@ public class PadActivity extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Método que sobreescribe la accion de ir hacia a tras de la actividad.
+     */
+    @Override
+    public void onBackPressed() {
+        exitGame();
+    }
+
+    /**
+     * Método que sobreescribe la accion de ir hacer clic de la actividad.
+     */
+    @Override
+    public void onClick(View v) {
+        Vibrator vibe = (Vibrator) PadActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+        switch (v.getId()) {
+            case R.id.left:
+                Message left = new Message();
+                left.setMessageType("MOVEMENT");
+                left.setMessage("LEFT");
+                this.singleton.getNodeManager().send(this.currentScreen, left);
+                vibe.vibrate(80);
+                break;
+            case R.id.right:
+                Message right = new Message();
+                right.setMessageType("MOVEMENT");
+                right.setMessage("RIGHT");
+                this.singleton.getNodeManager().send(this.currentScreen, right);
+                vibe.vibrate(80);
+                break;
+            case R.id.move:
+                Message move = new Message();
+                move.setMessageType("MOVEMENT");
+                move.setMessage("MOVE");
+                this.singleton.getNodeManager().send(this.currentScreen, move);
+                vibe.vibrate(80);
+                break;
+            case R.id.shoot:
+                Message shoot = new Message();
+                shoot.setMessageType("SHOOT");
+                shoot.setMessage("SHOOT");
+                this.singleton.getNodeManager().send(this.currentScreen, shoot);
+                vibe.vibrate(80);
+                Sound.shoot(v, 0.9f, 0.9f);
+                break;
+            default:
+                System.out.println("Option not found");
+        }
+    }
+
+    /**
+     * Método que sobreescribe la accion de detener la aplicación de la actividad.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    /**
+     * Método que sobreescribe la accion de reanudar la apliación de la actividad.
+     */
     @Override
     protected void onResume() {
         super.onResume();
