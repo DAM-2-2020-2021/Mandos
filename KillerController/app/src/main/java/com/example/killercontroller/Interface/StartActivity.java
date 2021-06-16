@@ -1,6 +1,5 @@
 package com.example.killercontroller.Interface;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +7,9 @@ import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.text.format.Formatter;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -42,14 +39,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private Singleton singleton;
     private TableLayout table;
-    private TextView startTextView, testing;
-    private Handler mHandler;
+    private TextView startTextView;
     private Button playButton;
     private String ip;
     private int myAdminId = 0;
     private EditText name;
     private Dialog connectDialog,playerDialog;
-    private boolean pressedUp = false;
     private boolean adminseted = false, nicknameAck = false;
     private final String NICKNAME = "NICKNAME", TEAM = "TEAM", READY = "READY", SPACECRAFT_TYPE = "SPACECRAFT TYPE", ADMIN = "ADMIN", NICKNAMEACK = "NICKNAMEACK";
 
@@ -207,8 +202,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         int height = size.y;
         connectDialog.getWindow().setLayout(width, height);
         connectDialog.getWindow().setBackgroundDrawableResource(R.color.translucent_black);
-        this.testing = (TextView) connectDialog.findViewById(R.id.button_testing_start);
-        // this.testing.setOnClickListener(StartActivity.this);
 
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
@@ -284,13 +277,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 break;
-            case R.id.button_testing_start:
-                //connectDialog.dismiss();
-                //setPlayerName();
-
         }
     }
-
 
     private void sendName(Message message) {
         singleton.getNodeManager().send(this.myAdminId, message);

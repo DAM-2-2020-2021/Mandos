@@ -95,8 +95,8 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
         this.redTeam.setOnClickListener(this);
         this.readyButton = (ToggleButton) findViewById(R.id.ready_button);
         this.readyButton.setOnClickListener(this);
-        this.pad_activity = (Button) findViewById(R.id.pad_activity);
-        this.pad_activity.setOnClickListener(this);
+       // this.pad_activity = (Button) findViewById(R.id.pad_activity);
+//        this.pad_activity.setOnClickListener(this);
         setDefaultValues();
     }
 
@@ -203,9 +203,9 @@ public class ConfigureActivity extends AppCompatActivity implements View.OnClick
                     Sound.menuSelect(ConfigureActivity.this, 0.9f, 0.9f);
                 }
                 break;
-            case R.id.pad_activity:
+         /*   case R.id.pad_activity:
                 startPadActivity();
-                break;
+                break;*/
             default:
                 System.out.println("Invalid option");
         }

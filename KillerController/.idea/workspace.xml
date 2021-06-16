@@ -10,15 +10,18 @@
   <component name="ChangeListManager">
     <list default="true" id="f8c9ddc1-7ed3-483e-9a87-131af71263b7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/PadActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/ConfigureActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/pink_out_line.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/pink_out_line.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_configure.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/loading_screen.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_One_API_30" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_30" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -44,6 +47,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="KillerController" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KillerController" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -76,6 +85,11 @@
       </list>
     </option>
   </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="C:\Users\eduwo\Desktop\claves\key.jks" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -87,12 +101,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="16da8f4f" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-06-08T11:50:45.064Z" />
+    <property name="ApkExportedModule" value="app" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_30" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-06-15T16:35:49.187Z" />
+    <property name="ExportApk.ApkPath" value="F:\Datos\Usuario\src\proyectoDAM\Mandos\KillerController\app" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="ExportApk.SignV2" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/claves/key.jks" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -115,7 +133,7 @@
       <recent name="F:\Datos\Usuario\src\Android\KillerController\app\src\main\res\drawable" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Android App.app">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -174,6 +192,30 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="KillerController [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.KillerController [build]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -225,26 +267,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="627" y="225" key="AndroidCreateXmlResourceDialog/0.0.1536.824@0.0.1536.824" timestamp="1623656941725" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1623589091222">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1623781515858">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1623589091222" />
-    <state width="1491" height="254" key="GridCell.Tab.0.bottom" timestamp="1623674561357">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1623781515858" />
+    <state width="1491" height="204" key="GridCell.Tab.0.bottom" timestamp="1623775265160">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="254" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623674561357" />
-    <state width="1491" height="254" key="GridCell.Tab.0.center" timestamp="1623674561356">
+    <state width="1491" height="204" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623775265160" />
+    <state width="1491" height="204" key="GridCell.Tab.0.center" timestamp="1623775265159">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="254" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623674561356" />
-    <state width="1491" height="254" key="GridCell.Tab.0.left" timestamp="1623674561356">
+    <state width="1491" height="204" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623775265159" />
+    <state width="1491" height="204" key="GridCell.Tab.0.left" timestamp="1623775265159">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="254" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623674561356" />
-    <state width="1491" height="254" key="GridCell.Tab.0.right" timestamp="1623674561357">
+    <state width="1491" height="204" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623775265159" />
+    <state width="1491" height="204" key="GridCell.Tab.0.right" timestamp="1623775265159">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="254" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623674561357" />
+    <state width="1491" height="204" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623775265159" />
     <state width="1491" height="260" key="GridCell.Tab.1.bottom" timestamp="1622481894861">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -269,10 +311,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="584" y="190" key="chooseDestDirectoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1623665076139" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1623667641997">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1623759125501">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1623667641997" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1623759125501" />
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1622058521797">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -281,6 +323,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="463" y="10" width="609" height="804" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1620158390975" />
+    <state x="0" y="0" width="100" height="100" key="net.trustx.simpleuml.components.BirdViewFrame" timestamp="1623740813485">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="0" y="0" width="100" height="100" key="net.trustx.simpleuml.components.BirdViewFrame/0.0.1536.824@0.0.1536.824" timestamp="1623740813485" />
     <state x="475" y="31" key="refactoring.ChangeSignatureDialog" timestamp="1623533533889">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -309,7 +355,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/killercontroller/Interface/StartActivity.java</url>
-          <line>295</line>
+          <line>283</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

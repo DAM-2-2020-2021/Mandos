@@ -131,9 +131,9 @@
         android:text="@string/ready"
         android:textOn="Ready"
         android:textOff="Ready?"/>
-        <Button
+     <!--   <Button
             android:id="@+id/pad_activity"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
     </LinearLayout>
 </RelativeLayout>
